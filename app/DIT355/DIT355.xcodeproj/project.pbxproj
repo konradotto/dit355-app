@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D21237431D500A7AC6B /* AppDelegate.swift */; };
-		CA099D24237431D500A7AC6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D23237431D500A7AC6B /* SceneDelegate.swift */; };
 		CA099D26237431D500A7AC6B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D25237431D500A7AC6B /* ViewController.swift */; };
 		CA099D29237431D500A7AC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA099D27237431D500A7AC6B /* Main.storyboard */; };
 		CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA099D2A237431D500A7AC6B /* DIT355.xcdatamodeld */; };
@@ -19,7 +18,6 @@
 /* Begin PBXFileReference section */
 		CA099D1E237431D500A7AC6B /* DIT355.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIT355.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA099D21237431D500A7AC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA099D23237431D500A7AC6B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CA099D25237431D500A7AC6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CA099D28237431D500A7AC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA099D2B237431D500A7AC6B /* DIT355.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DIT355.xcdatamodel; sourceTree = "<group>"; };
@@ -59,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				CA099D21237431D500A7AC6B /* AppDelegate.swift */,
-				CA099D23237431D500A7AC6B /* SceneDelegate.swift */,
 				CA099D25237431D500A7AC6B /* ViewController.swift */,
 				CA099D27237431D500A7AC6B /* Main.storyboard */,
 				CA099D2D237431D600A7AC6B /* Assets.xcassets */,
@@ -144,7 +141,6 @@
 				CA099D26237431D500A7AC6B /* ViewController.swift in Sources */,
 				CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,
-				CA099D24237431D500A7AC6B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
