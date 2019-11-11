@@ -41,7 +41,7 @@ class BrokerCon: MQTTSessionDelegate{
 
     //establish a connection with the broker through the specified host, port, and ID
     func establishConnection() {
-        let host = "localhost"
+        let host = "192.168.43.61"
         let port: UInt16 = 1883
         let clientID = self.clientID()
     
@@ -60,7 +60,7 @@ class BrokerCon: MQTTSessionDelegate{
     
     // Subscribe to channel
     func subscribeToChannel() {
-        let channel = "/#"
+        let channel = "hello/world"
         mqttSession.subscribe(to: channel, delivering: .atLeastOnce) { (error) in
             if error == .none {
                 print("Subscribed to \(channel)")
