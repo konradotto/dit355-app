@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9FBF9CE223799C69003CC839 /* MyLibrary */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyLibrary; sourceTree = "<group>"; };
 		CA099D1E237431D500A7AC6B /* DIT355.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIT355.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA099D21237431D500A7AC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA099D25237431D500A7AC6B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		CA099D15237431D500A7AC6B = {
 			isa = PBXGroup;
 			children = (
+				9FBF9CE223799C69003CC839 /* MyLibrary */,
 				CA099D20237431D500A7AC6B /* DIT355 */,
 				CA099D1F237431D500A7AC6B /* Products */,
 			);
