@@ -9,31 +9,19 @@
 import Foundation
 import CoreLocation
 
-class Request: NSObject {
+class RequestModel: NSObject {
     
     var source          : CLLocation
     var destination     : CLLocation
     var departureTime   : TimeInterval
     var arrivalTime     : TimeInterval?
     var hasArrivalTime  : Bool
-    var type            : String {
-        get{return self.type}
-        set {
-            switch newValue {
-            case "1":
-                self.type = "Bus"
-                break
-            case "2":
-                self.type = "Tram"
-                break
-            case "3":
-                self.type = "Feiry"
-                break
-            default:
-                self.type = "undefiened"
-            }
+    var type            : TransportationType
+    
+    override var description: String {
+        get{
+            return String("Request: \n\t Source: \(source.coordinate) \n\t Destination: \(destination.coordinate) \n\t Departure Time: \(departureTime) \n\t Arrival Time: \(arrivalTime!) \n\t Has Arrival: \(hasArrivalTime) \n\t Type: \(type)")
         }
-        
     }
     
     public override init() {
@@ -42,11 +30,12 @@ class Request: NSObject {
         self.departureTime = TimeInterval()
         self.arrivalTime = TimeInterval()
         self.hasArrivalTime = Bool()
+        self.type = TransportationType.Undefined
     }
     
     
     
-    public init(source: CLLocation,destination: CLLocation,departureTime: TimeInterval, arrivalTime: TimeInterval?, hasArrivalTime: Bool,type: String){
+    public init(source: CLLocation,destination: CLLocation,departureTime: TimeInterval, arrivalTime: TimeInterval?, hasArrivalTime: Bool,type: Int){
         self.source = source
         self.destination = destination
         self.departureTime = departureTime
@@ -54,6 +43,7 @@ class Request: NSObject {
         if hasArrivalTime {
             self.arrivalTime = arrivalTime
         }
+        self.type = TransportationType(rawValue: type)!
         
     }
     
