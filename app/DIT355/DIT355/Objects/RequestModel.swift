@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class RequestModel: NSObject {
+struct RequestModel {
     
     var source          : CLLocation
     var destination     : CLLocation
@@ -18,13 +18,13 @@ class RequestModel: NSObject {
     var hasArrivalTime  : Bool
     var type            : TransportationType
     
-    override var description: String {
+    var description: String {
         get{
             return String("Request: \n\t Source: \(source.coordinate) \n\t Destination: \(destination.coordinate) \n\t Departure Time: \(departureTime) \n\t Arrival Time: \(arrivalTime!) \n\t Has Arrival: \(hasArrivalTime) \n\t Type: \(type)")
         }
     }
     
-    public override init() {
+    public  init() {
         self.source = CLLocation()
         self.destination = CLLocation()
         self.departureTime = TimeInterval()

@@ -17,6 +17,8 @@
 		CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEC2379AD80004BEF17 /* MapModel.swift */; };
 		CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEE2379AD8D004BEF17 /* MapController.swift */; };
 		CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCF02379E533004BEF17 /* MapViewController.swift */; };
+		CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C6237D53F7009EFA32 /* Annotation.swift */; };
+		CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C8237D5621009EFA32 /* RequestSession.swift */; };
 		CAF9AE22237C3D880032E1D0 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* RequestModel.swift */; };
 		CAF9AE23237C3D880032E1D0 /* TransportationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE21237C3D880032E1D0 /* TransportationType.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +36,8 @@
 		CA39BCEC2379AD80004BEF17 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		CA39BCEE2379AD8D004BEF17 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CA39BCF02379E533004BEF17 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CAD027C6237D53F7009EFA32 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		CAD027C8237D5621009EFA32 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
 		CAF9AE20237C3D880032E1D0 /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		CAF9AE21237C3D880032E1D0 /* TransportationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportationType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +91,8 @@
 			children = (
 				CAF9AE20237C3D880032E1D0 /* RequestModel.swift */,
 				CAF9AE21237C3D880032E1D0 /* TransportationType.swift */,
+				CAD027C6237D53F7009EFA32 /* Annotation.swift */,
+				CAD027C8237D5621009EFA32 /* RequestSession.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -186,6 +192,8 @@
 				CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */,
 				CAF9AE23237C3D880032E1D0 /* TransportationType.swift in Sources */,
 				CAF9AE22237C3D880032E1D0 /* RequestModel.swift in Sources */,
+				CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */,
+				CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */,
 				CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,
 				CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */,
