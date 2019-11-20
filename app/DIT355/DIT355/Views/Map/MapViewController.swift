@@ -12,7 +12,11 @@ class MapViewController: UIViewController {
     
     
     var model = MapModel(frame: UIScreen.main.bounds)
-    var controller : MapController!
+    lazy var controller : MapController! = MapController.shared
+    
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +27,6 @@ class MapViewController: UIViewController {
     override func loadView() {
         self.view = model
         model.delegate = self
-        controller = MapController.shared
         controller.delegate = self
         controller.model = self.model
     }

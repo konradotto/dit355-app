@@ -11,18 +11,23 @@ import Foundation
 
 class RequestSession: NSObject {
     
-    
-    var name : Date
+    var id : String
+    var title : String
+    var date : Date
     var annotations: [Annotation]
     
     
     override public init() {
-        name = Date()
-        annotations = [Annotation]()
+        self.id = UUID().uuidString
+        self.title = String()
+        self.date = Date()
+        self.annotations = [Annotation]()
     }
     
-    public init(name: Date, anns: [Annotation]) {
-        self.name = name
+    public init(title: String,date: Date, anns: [Annotation]) {
+        self.id = UUID().uuidString
+        self.title = title
+        self.date = date
         self.annotations = anns
     }
     
