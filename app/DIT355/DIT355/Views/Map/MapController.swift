@@ -15,7 +15,7 @@ class MapController : NSObject {
 
     var mapView: MKMapView!
     var model: MapModel!
-    var delegate: MapViewController!
+    var delegate: UIViewController!
     
     let minCoord = CLLocation(latitude: 57.562184, longitude: 11.7018663)
     let maxCoord = CLLocation(latitude: 57.8580397, longitude: 12.2068462)
@@ -29,7 +29,8 @@ class MapController : NSObject {
     
     
     func initialView(animated: Bool){
-        mapView.setVisibleMapRect(self.mapRect, animated: animated)
+        let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
+        mapView.setVisibleMapRect(self.mapRect, edgePadding: ei, animated: animated)
     }
         
     

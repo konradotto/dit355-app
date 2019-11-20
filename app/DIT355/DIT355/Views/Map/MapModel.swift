@@ -11,7 +11,7 @@ import MapKit
 
 class MapModel: UIView {
     
-    var delegate : MapViewController!
+    var delegate : UIViewController!
     var controller : MapController!
     
     var mapView: MKMapView!
@@ -48,7 +48,7 @@ class MapModel: UIView {
             self.addSubview(compassButton)
             compassButton.translatesAutoresizingMaskIntoConstraints = false
             compassButton.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 15).isActive = true
-            compassButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 30).isActive = true
+            compassButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 80).isActive = true
             
         }
     
