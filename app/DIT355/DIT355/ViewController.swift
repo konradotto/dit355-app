@@ -7,17 +7,14 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
        
-        let broker = BrokerCon.shared
-        
-        broker.establishConnection()
     }
 
-
 }
-

@@ -14,12 +14,16 @@ class BrokerCon: MQTTSessionDelegate{
     
     static let shared = BrokerCon()
     
+    
     private init() {
         establishConnection()
     }
     
+   var mqttSession: MQTTSession!
+    
     // Protocol 1
     func mqttDidReceive(message: MQTTMessage, from session: MQTTSession) {
+        print()
         print("data received on topic \(message.topic) message \(message.stringRepresentation ?? "<>")")
     }
     
@@ -36,12 +40,12 @@ class BrokerCon: MQTTSessionDelegate{
         print("Keep-alive ping acknowledged.")
     }
    
-    var mqttSession: MQTTSession!
+    
     
 
     //establish a connection with the broker through the specified host, port, and ID
     func establishConnection() {
-        let host = "192.168.43.61"
+        let host = "test.mosquitto.org"
         let port: UInt16 = 1883
         let clientID = self.clientID()
     
@@ -60,7 +64,7 @@ class BrokerCon: MQTTSessionDelegate{
     
     // Subscribe to channel
     func subscribeToChannel() {
-        let channel = "hello/world"
+        let channel = "#"
         mqttSession.subscribe(to: channel, delivering: .atLeastOnce) { (error) in
             if error == .none {
                 print("Subscribed to \(channel)")
