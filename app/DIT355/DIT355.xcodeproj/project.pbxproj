@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FBF9CE42379A1C2003CC839 /* BrokerCon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBF9CE32379A1C2003CC839 /* BrokerCon.swift */; };
+		9FBF9CEF2379A8DF003CC839 /* SwiftMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 9FBF9CEE2379A8DF003CC839 /* SwiftMQTT */; };
 		CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D21237431D500A7AC6B /* AppDelegate.swift */; };
 		CA099D29237431D500A7AC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA099D27237431D500A7AC6B /* Main.storyboard */; };
 		CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA099D2A237431D500A7AC6B /* DIT355.xcdatamodeld */; };
@@ -28,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9FBF9CE32379A1C2003CC839 /* BrokerCon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokerCon.swift; sourceTree = "<group>"; };
 		CA099D1E237431D500A7AC6B /* DIT355.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIT355.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA099D21237431D500A7AC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA099D28237431D500A7AC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,17 +58,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FBF9CEF2379A8DF003CC839 /* SwiftMQTT in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9FBF9CEA2379A8A4003CC839 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CA099D15237431D500A7AC6B = {
 			isa = PBXGroup;
 			children = (
 				CA099D20237431D500A7AC6B /* DIT355 */,
 				CA099D1F237431D500A7AC6B /* Products */,
+				9FBF9CEA2379A8A4003CC839 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +97,7 @@
 				CA39BCE323798E85004BEF17 /* Objects */,
 				CA099D21237431D500A7AC6B /* AppDelegate.swift */,
 				CA099D27237431D500A7AC6B /* Main.storyboard */,
+				9FBF9CE32379A1C2003CC839 /* BrokerCon.swift */,
 				CA099D2D237431D600A7AC6B /* Assets.xcassets */,
 				CA099D2F237431D600A7AC6B /* LaunchScreen.storyboard */,
 				CA099D32237431D600A7AC6B /* Info.plist */,
@@ -157,8 +170,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				9F7369AB23847F9C00341033 /* PBXTargetDependency */,
 			);
 			name = DIT355;
+			packageProductDependencies = (
+				9FBF9CEE2379A8DF003CC839 /* SwiftMQTT */,
+			);
 			productName = DIT355;
 			productReference = CA099D1E237431D500A7AC6B /* DIT355.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +204,9 @@
 				Base,
 			);
 			mainGroup = CA099D15237431D500A7AC6B;
+			packageReferences = (
+				9FBF9CED2379A8DF003CC839 /* XCRemoteSwiftPackageReference "SwiftMQTT" */,
+			);
 			productRefGroup = CA099D1F237431D500A7AC6B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -229,10 +249,18 @@
 				CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */,
 				CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */,
 				CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */,
+				9FBF9CE42379A1C2003CC839 /* BrokerCon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9F7369AB23847F9C00341033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 9F7369AA23847F9C00341033 /* SwiftMQTT */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CA099D27237431D500A7AC6B /* Main.storyboard */ = {
@@ -428,6 +456,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9FBF9CED2379A8DF003CC839 /* XCRemoteSwiftPackageReference "SwiftMQTT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aciidb0mb3r/SwiftMQTT.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9F7369AA23847F9C00341033 /* SwiftMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FBF9CED2379A8DF003CC839 /* XCRemoteSwiftPackageReference "SwiftMQTT" */;
+			productName = SwiftMQTT;
+		};
+		9FBF9CEE2379A8DF003CC839 /* SwiftMQTT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9FBF9CED2379A8DF003CC839 /* XCRemoteSwiftPackageReference "SwiftMQTT" */;
+			productName = SwiftMQTT;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CA099D2A237431D500A7AC6B /* DIT355.xcdatamodeld */ = {
