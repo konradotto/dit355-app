@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
 import SwiftyJSON
 
 struct RequestModel : Codable {
@@ -19,7 +18,7 @@ struct RequestModel : Codable {
     var destinationLat  : Double
     var destinationLong : Double
     var departureTime   : Double
-    var type            : Int
+    var type            : String
     var purpose         : String
     var id              : String
     
@@ -37,14 +36,14 @@ struct RequestModel : Codable {
         self.destinationLat     = Double()
         self.destinationLong    = Double()
         self.departureTime      = Double()
-        self.type               = Int()
+        self.type               = String()
         self.purpose            = String()
         self.id                 = String()
     }
     
     
     
-    public init(deviceId: String,requestId: String,sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: Double,purpose: String,type: Int){
+    public init(deviceId: String,requestId: String,sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: Double,purpose: String,type: String){
         self.deviceId           = deviceId
         self.requestId          = requestId
         self.originLat          = sourceLat
@@ -66,7 +65,7 @@ struct RequestModel : Codable {
         self.destinationLong    = obj["destination"]["longitude"].doubleValue
         self.destinationLat     = obj["destination"]["latitude"].doubleValue
         self.departureTime      = obj["timeOfDeparture"].doubleValue
-        self.type               = obj["transportationType"].intValue
+        self.type               = obj["transportationType"].stringValue
         self.purpose            = obj["purpose"].stringValue
         self.id                 = UUID().uuidString
     }

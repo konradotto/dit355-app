@@ -24,9 +24,8 @@ class ContainerViewController: UIViewController {
     }()
     
     //MARK: - Class Variables
-    
     let blackTransparentViewTag = 666
-    var isActive: Bool = false
+    var isActive = false
     
     //MARK: - ViewController Functions
     override func viewDidLoad() {
@@ -67,7 +66,7 @@ class ContainerViewController: UIViewController {
     }
     
     //MARK: - Shadow View
-    func addBlackTransparentView() -> UIView{
+    private func addBlackTransparentView() -> UIView{
         //Black Shadow on MainView(i.e on TabBarController) when side menu is opened.
         let blackView = self.mapVC!.view.viewWithTag(blackTransparentViewTag)
         if blackView != nil{
@@ -86,7 +85,7 @@ class ContainerViewController: UIViewController {
         
     }
     
-    func addShadowToView(){
+    private func addShadowToView(){
         //Gives Illusion that main view is above the side menu
         self.mapView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).cgColor
         self.mapView.layer.shadowOffset = CGSize(width: -1, height: 1)

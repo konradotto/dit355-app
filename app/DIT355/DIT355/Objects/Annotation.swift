@@ -11,18 +11,20 @@ import MapKit
 
 class Annotation: NSObject, MKAnnotation {
     
-    var title: String?
-    var coordinate: CLLocationCoordinate2D
-    var type: String
-    var discipline: String?
-    var id: String = ""
+    var title           : String?
+    var coordinate      : CLLocationCoordinate2D
+    var type            : String
+    var departureTime   : TimeInterval?
+    var purpose         : String
+    var id              : String
     
-    init(title: String, coordinate: CLLocationCoordinate2D,radius: Double?,type: String?, discipline: String?) {
-        self.title = title
-        self.coordinate = coordinate
-        self.type = type ?? "undefined"
-        self.discipline = discipline
-        
+    init(title: String, coordinate: CLLocationCoordinate2D, type: String?,purpose: String, depTime: TimeInterval?, id: String) {
+        self.title          = title
+        self.coordinate     = coordinate
+        self.type           = type ?? "undefined"
+        self.departureTime  = depTime
+        self.purpose        = purpose
+        self.id             = id
         super.init()
     }
     
