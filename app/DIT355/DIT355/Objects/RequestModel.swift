@@ -8,8 +8,9 @@
 
 import Foundation
 import CoreLocation
+import SwiftyJSON
 
-struct RequestModel {
+struct RequestModel : Codable {
     
     var deviceId        : String
     var requestId       : String
@@ -17,9 +18,10 @@ struct RequestModel {
     var originLong      : Double
     var destinationLat  : Double
     var destinationLong : Double
-    var departureTime   : TimeInterval
+    var departureTime   : Double
     var type            : Int
     var purpose         : String
+    var id              : String
     
     var description: String {
         get{
@@ -34,14 +36,15 @@ struct RequestModel {
         self.originLong         = Double()
         self.destinationLat     = Double()
         self.destinationLong    = Double()
-        self.departureTime      = TimeInterval()
+        self.departureTime      = Double()
         self.type               = Int()
         self.purpose            = String()
+        self.id                 = String()
     }
     
     
     
-    public init(deviceId: String,requestId: String,sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: TimeInterval,purpose: String,type: Int){
+    public init(deviceId: String,requestId: String,sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: Double,purpose: String,type: Int){
         self.deviceId           = deviceId
         self.requestId          = requestId
         self.originLat          = sourceLat
@@ -51,6 +54,21 @@ struct RequestModel {
         self.departureTime      = departureTime
         self.type               = type
         self.purpose            = purpose
+        self.id                 = UUID().uuidString
+    }
+    
+   public init(obj: JSON){
+    
+        self.deviceId           = obj["deviceId"].stringValue
+        self.requestId          = obj["requestId"].stringValue
+        self.originLat          = obj["origin"]["latitude"].doubleValue
+        self.originLong         = obj["origin"]["longitude"].doubleValue
+        self.destinationLong    = obj["destination"]["longitude"].doubleValue
+        self.destinationLat     = obj["destination"]["latitude"].doubleValue
+        self.departureTime      = obj["timeOfDeparture"].doubleValue
+        self.type               = obj["transportationType"].intValue
+        self.purpose            = obj["purpose"].stringValue
+        self.id                 = UUID().uuidString
     }
     
     

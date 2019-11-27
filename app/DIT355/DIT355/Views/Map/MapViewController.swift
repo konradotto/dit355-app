@@ -11,7 +11,7 @@ import UIKit
 class MapViewController: UIViewController {
     
     
-    var model = MapModel(frame: UIScreen.main.bounds)
+    lazy var model = MapModel(frame: UIScreen.main.bounds)
     lazy var controller : MapController! = MapController.shared
     
     
@@ -21,8 +21,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         controller.initialView(animated: false)
-         let b = MqttManager.shared
-
+                
     }
     
     override func loadView() {

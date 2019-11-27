@@ -26,7 +26,9 @@ class SessionTableViewController: UITableViewController {
 
     
     override func viewWillAppear(_ animated: Bool) {
-        dummyData()
+        if dataArray.isEmpty{
+            dummyData()
+        }
     }
     
     func dummyData(){

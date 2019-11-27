@@ -12,17 +12,19 @@ import SwiftyJSON
 class ConversionManager {
     
     static let shared = ConversionManager()
+    private init(){}
     
-    private init(){
+    func convertToStruct(_ str: String) -> RequestModel {
+        
+        let jsonData  = JSON(parseJSON: str)
+        let jsonObjet = jsonData["travelRequest"]
+        return RequestModel(obj: jsonObjet)
         
     }
     
     
-    func fromJson(json: JSON){
-        //
-    }
     
-    
+ 
     
     
     

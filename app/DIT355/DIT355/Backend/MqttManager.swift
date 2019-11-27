@@ -2,7 +2,7 @@
 //  BrokerCon.swift
 //  DIT355
 //
-//  Created by Kardo Dastin on 2019-11-11.
+//  Created by Jean paul Massoud on 2019-11-27.
 //  Copyright © 2019 DIT355-group. All rights reserved.
 //
 
@@ -14,24 +14,24 @@ class MqttManager{
     static let shared = MqttManager()
     private let host = "test.mosquitto.org"
     private let port: UInt16 = 1883
-    private let topic = "MainMachine120919/CP6706/TcIotCommunicator/Messages/103"
-    private lazy var clientId = self.clientID()
+    private let topic = "some/test/planes"
     private var mqtt: CocoaMQTT?
     
     
     
     private init() {
-        print(">> init")
+        print(">> init connection")
         establishConnection()
     }
     
     
     func establishConnection() {
-        
+        let clientId = self.clientID()
         mqtt = CocoaMQTT(clientID: clientId, host: host, port: port)
-        mqtt!.keepAlive = 30
+        mqtt!.keepAlive = 60
         mqtt!.delegate = self
         let _ = mqtt!.connect()
+        print("Client ID: ",clientId)
     }
     
     func clientID() -> String {
@@ -61,7 +61,6 @@ class MqttManager{
                let index = String.Index(utf16Offset: Int(rand), in: letters)
                randomString += String(letters[index])
            }
-            print(String(randomString))
            return String(randomString)
        }
     
@@ -104,7 +103,8 @@ extension MqttManager : CocoaMQTTDelegate {
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
         print(">> Did receive message")
-        let _ = message != nil && message.topic != nil && message.string != nil ? print(">> Message topic: \(message.topic)\nMessage string: \(String(describing: message.string))") :(())
+        let _ =  message.string != nil ? print(">> Message topic: \(message.topic)\n Message string: \(message.string!)") :(())
+        //ConversionManager.shared.convertToStruct(message.string!)
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {

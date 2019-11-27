@@ -9,5 +9,5 @@
 import Foundation
 
 enum TransportationType : Int {
-    case Bus = 1, Tram, Ferry, Undefined
+    case bus = 1, tram, ferry, undefined
 }

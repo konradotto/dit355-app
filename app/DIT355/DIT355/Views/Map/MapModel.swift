@@ -13,14 +13,8 @@ class MapModel: UIView {
     
     var delegate : UIViewController!
     var controller : MapController!
-    
-    //static let shared = MapModel()
-    
-    
     var mapView: MKMapView!
     var resetButton: UIButton!
-    var subscribeButton: UIButton!
-    var requestLabel: UILabel!
         
     
     override init(frame: CGRect) {
@@ -44,6 +38,7 @@ class MapModel: UIView {
         mapView.isPitchEnabled  = false
         mapView.isRotateEnabled = true
         mapView.isScrollEnabled = true
+        //mapView.overrideUserInterfaceStyle = .dark
         mapView.delegate = controller
     }
     
@@ -63,29 +58,11 @@ class MapModel: UIView {
         resetButton = .init(type: .roundedRect)
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.addTarget(self, action: #selector(resetButtonAction), for: .touchUpInside)
-        resetButton.setTitle("Reset", for: .normal)
         resetButton.isHidden = true
-        resetButton.layer.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
-        resetButton.setTitleColor(.white, for: .normal)
-        resetButton.layer.borderWidth = 1
-        resetButton.layer.cornerRadius = 10
+        resetButton.setImage(UIImage(named: "arrow"), for: .normal)
         self.addSubview(resetButton)
-        resetButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -40).isActive = true
-        resetButton.centerXAnchor.constraint(equalTo: self.centerXAnchor,constant: 0).isActive = true
-        
-        subscribeButton = .init(type: .roundedRect)
-        subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        subscribeButton.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
-        subscribeButton.setTitle("subscribe", for: .normal)
-        subscribeButton.layer.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
-        subscribeButton.setTitleColor(.white, for: .normal)
-        subscribeButton.layer.borderWidth = 1
-        subscribeButton.layer.cornerRadius = 10
-        self.addSubview(subscribeButton)
-        subscribeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
-        subscribeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor,constant: 0).isActive = true
-        
-    
+        resetButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
+        resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 80).isActive = true
         
     }
     
@@ -93,15 +70,6 @@ class MapModel: UIView {
         controller.initialView(animated: true)
         resetButton.isHidden = true
     }
-    
-    @objc func subscribeButtonAction(sender: UIButton){
-//           controller.initialView(animated: true)
-//           resetButton.isHidden = true
-//           broker.establishConnection()
-        MqttManager.shared.subscribeTopic()
-       }
-    
-    
     
     
 }
