@@ -13,12 +13,12 @@ class MapViewController: UIViewController {
     
     var model = MapModel(frame: UIScreen.main.bounds)
     var controller : MapController!
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         controller.initialView(animated: false)
-        let broker = BrokerCon.shared
-        
+         let b = MqttManager.shared
 
     }
     

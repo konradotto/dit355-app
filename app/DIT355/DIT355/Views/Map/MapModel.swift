@@ -14,16 +14,14 @@ class MapModel: UIView {
     var delegate : MapViewController!
     var controller : MapController!
     
-    static let shared = MapModel()
+    //static let shared = MapModel()
     
     
     var mapView: MKMapView!
     var resetButton: UIButton!
     var subscribeButton: UIButton!
     var requestLabel: UILabel!
-    
-    let broker = BrokerCon.shared
-    
+        
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,9 +95,10 @@ class MapModel: UIView {
     }
     
     @objc func subscribeButtonAction(sender: UIButton){
-           controller.initialView(animated: true)
-           resetButton.isHidden = true
-           broker.establishConnection()
+//           controller.initialView(animated: true)
+//           resetButton.isHidden = true
+//           broker.establishConnection()
+        MqttManager.shared.subscribeTopic()
        }
     
     
