@@ -21,6 +21,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         controller.initialView(animated: false)
+         let b = MqttManager.shared
 
     }
     

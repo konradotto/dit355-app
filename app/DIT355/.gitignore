@@ -16,6 +16,8 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+Pods/
+*.lock
 
 ## Other
 *.moved-aside
@@ -40,8 +42,6 @@ playground.xcworkspace
 # Package.resolved
 .build/
 
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-*.xcworkspace
 
 iOSInjectionProject/
 
