@@ -11,7 +11,6 @@ import CocoaMQTT
 
 class MqttManager{
     
-    
     static let shared = MqttManager()
     private let host = "test.mosquitto.org"
     private let port: UInt16 = 1883
@@ -30,10 +29,7 @@ class MqttManager{
     func establishConnection() {
         
         mqtt = CocoaMQTT(clientID: clientId, host: host, port: port)
-        //mqtt!.username = ""
-        //mqtt!.password = ""
-        //mqtt!.willMessage = CocoaMQTTMessage(topic: "/will", string: "dieout")
-        mqtt!.keepAlive = 60
+        mqtt!.keepAlive = 30
         mqtt!.delegate = self
         let _ = mqtt!.connect()
     }
@@ -54,6 +50,7 @@ class MqttManager{
 
            return clientID
        }
+    
     func randomStringWithLength(_ len: Int) -> String {
            let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
@@ -61,15 +58,18 @@ class MqttManager{
            for _ in 0..<len {
                let length = UInt32(letters.count)
                let rand = arc4random_uniform(length)
-               let index = String.Index(encodedOffset: Int(rand))
+               let index = String.Index(utf16Offset: Int(rand), in: letters)
                randomString += String(letters[index])
            }
+            print(String(randomString))
            return String(randomString)
        }
+    
     func subscribeTopic(){
         print(">> subscribing")
         mqtt!.subscribe(self.topic, qos: .qos1)
     }
+    
     func unsubscribeTopic(){
         mqtt!.unsubscribe(self.topic)
     }
@@ -82,7 +82,7 @@ extension MqttManager : CocoaMQTTDelegate {
     }
     
     func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-        print(">> Did receive ping")
+        print(">> Did receive pong")
     }
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {

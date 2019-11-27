@@ -11,51 +11,47 @@ import CoreLocation
 
 struct RequestModel {
     
-    var sourceLat       : Double
-    var sourceLong      : Double
+    var deviceId        : String
+    var requestId       : String
+    var originLat       : Double
+    var originLong      : Double
     var destinationLat  : Double
     var destinationLong : Double
     var departureTime   : TimeInterval
-    var arrivalTime     : TimeInterval?
-    var hasArrivalTime  : Bool
     var type            : Int
+    var purpose         : String
     
     var description: String {
         get{
-            return String("Request: \n\t Source: \t latitude: \(sourceLat), longitude:  \(sourceLong) \n\t Destination: \t latitude:  \(destinationLat) , longitude: \(destinationLong) \n\t Departure Time: \(departureTime) \n\t Arrival Time: \(arrivalTime!) \n\t Has Arrival: \(hasArrivalTime) \n\t Type: \(type)")
+            return String("Request: \n\t Device ID: \(deviceId) \n\t Request ID: \(requestId) \n\t Source: \t latitude: \(originLat), longitude:  \(originLong) \n\t Destination: \t latitude:  \(destinationLat) , longitude: \(destinationLong) \n\t Departure Time: \(departureTime) \n\t Purpose: \(purpose) \n\t Type: \(type)")
         }
     }
     
     public  init() {
-        self.sourceLat = Double()
-        self.sourceLong = Double()
-        self.destinationLat = Double()
-        self.destinationLong = Double()
-        self.departureTime = TimeInterval()
-        self.arrivalTime = TimeInterval()
-        self.hasArrivalTime = Bool()
-        self.type = Int()
+        self.deviceId           = String()
+        self.requestId          = String()
+        self.originLat          = Double()
+        self.originLong         = Double()
+        self.destinationLat     = Double()
+        self.destinationLong    = Double()
+        self.departureTime      = TimeInterval()
+        self.type               = Int()
+        self.purpose            = String()
     }
     
     
     
-    public init(sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: TimeInterval, arrivalTime: TimeInterval?, hasArrivalTime: Bool,type: Int){
-        self.sourceLat = sourceLat
-        self.sourceLong = sourceLong
-        self.destinationLong = destinationLong
-        self.destinationLat = destinationLat
-        self.departureTime = departureTime
-        self.hasArrivalTime = hasArrivalTime
-        if hasArrivalTime {
-            self.arrivalTime = arrivalTime
-        }
-        self.type = type
-        
+    public init(deviceId: String,requestId: String,sourceLat: Double,sourceLong: Double,destinationLat: Double,destinationLong: Double,departureTime: TimeInterval,purpose: String,type: Int){
+        self.deviceId           = deviceId
+        self.requestId          = requestId
+        self.originLat          = sourceLat
+        self.originLong         = sourceLong
+        self.destinationLong    = destinationLong
+        self.destinationLat     = destinationLat
+        self.departureTime      = departureTime
+        self.type               = type
+        self.purpose            = purpose
     }
-    
-    
-    
-    
     
     
 }

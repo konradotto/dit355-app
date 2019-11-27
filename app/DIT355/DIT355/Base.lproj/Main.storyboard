@@ -23,7 +23,6 @@
                     <navigationItem key="navigationItem" id="udN-oh-7hL"/>
                     <connections>
                         <segue destination="6G8-t6-tya" kind="show" identifier="navContainer" id="XuL-aE-N9W"/>
-                        <segue destination="z1y-sz-6Hu" kind="show" identifier="navMap" id="2ok-bd-x2G"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpd-Bg-fWT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

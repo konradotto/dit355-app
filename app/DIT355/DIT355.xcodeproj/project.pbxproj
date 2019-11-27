@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,7 @@
 		CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCF02379E533004BEF17 /* MapViewController.swift */; };
 		CA82DD3D2382C98C00856CA6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD3C2382C98C00856CA6 /* SessionManager.swift */; };
 		CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */; };
+		CA9D6998238E80A3000ABBAA /* ConversionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D6997238E80A3000ABBAA /* ConversionManager.swift */; };
 		CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C6237D53F7009EFA32 /* Annotation.swift */; };
 		CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C8237D5621009EFA32 /* RequestSession.swift */; };
 		CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */; };
@@ -47,6 +48,7 @@
 		CA39BCF02379E533004BEF17 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CA82DD3C2382C98C00856CA6 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		CA9D6997238E80A3000ABBAA /* ConversionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionManager.swift; sourceTree = "<group>"; };
 		CAD027C6237D53F7009EFA32 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		CAD027C8237D5621009EFA32 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
 		CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +76,6 @@
 				9F7D6A05D9520838A3452A9D /* Pods-DIT355.debug.xcconfig */,
 				589445FF73633FDF3CCED745 /* Pods-DIT355.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -112,7 +113,6 @@
 				CA39BCE323798E85004BEF17 /* Objects */,
 				CA099D21237431D500A7AC6B /* AppDelegate.swift */,
 				CA099D27237431D500A7AC6B /* Main.storyboard */,
-				9FBF9CE32379A1C2003CC839 /* MqttManager.swift */,
 				CA099D2D237431D600A7AC6B /* Assets.xcassets */,
 				CA099D2F237431D600A7AC6B /* LaunchScreen.storyboard */,
 				CA099D32237431D600A7AC6B /* Info.plist */,
@@ -157,7 +157,9 @@
 		CA82DD3B2382C96D00856CA6 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				9FBF9CE32379A1C2003CC839 /* MqttManager.swift */,
 				CA82DD3C2382C98C00856CA6 /* SessionManager.swift */,
+				CA9D6997238E80A3000ABBAA /* ConversionManager.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -293,6 +295,7 @@
 				CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */,
 				CAF9AE23237C3D880032E1D0 /* TransportationType.swift in Sources */,
 				CA82DD3D2382C98C00856CA6 /* SessionManager.swift in Sources */,
+				CA9D6998238E80A3000ABBAA /* ConversionManager.swift in Sources */,
 				CAF9AE22237C3D880032E1D0 /* RequestModel.swift in Sources */,
 				CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */,
 				CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */,

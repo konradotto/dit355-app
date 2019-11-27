@@ -54,6 +54,8 @@ class ContainerViewController: UIViewController {
             vc.view.frame = self.mapView.bounds
             self.mapView.addSubview(vc.view)
             
+            
+            
         }
     }
     
