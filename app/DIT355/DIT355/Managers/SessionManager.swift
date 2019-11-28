@@ -12,7 +12,10 @@ class SessionManager {
     
     static let shared = SessionManager()
     
+    var sessions : [Session]
+    
     private init(){
+        sessions = [Session]()
     }
     
     

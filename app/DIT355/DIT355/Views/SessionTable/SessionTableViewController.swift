@@ -10,17 +10,13 @@ import UIKit
 
 class SessionTableViewController: UITableViewController {
     
-    private var dataArray: [RequestSession]!
-    lazy var sm = SessionManager.shared
+    private var dataArray: [Session]!
+    let sm = SessionManager.shared
     let cellId = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataArray = [RequestSession]()
-        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        initTable()
     }
     
 
@@ -30,11 +26,24 @@ class SessionTableViewController: UITableViewController {
             dummyData()
         }
     }
+    func initTable(){
+        dataArray = sm.sessions
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
+    }
+    
+    @objc func updateTableData(notification: NSNotification){
+        self.tableView.reloadData()
+    }
+    
     
     func dummyData(){
         
         (0...10).forEach { (i) in
-            let s = RequestSession()
+            let s = Session()
             s.title = "session \(i)"
             dataArray.append(s)
         }
@@ -57,7 +66,10 @@ class SessionTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "navContainer", sender: self)
+        
+        let session = dataArray[indexPath.row]
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["sessionId" : session.id])
+        //self.performSegue(withIdentifier: "navContainer", sender: self)
         
     }
     

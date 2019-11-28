@@ -9,10 +9,11 @@
 import Foundation
 import MapKit
 
+
 class MapController : NSObject {
     
     static let shared = MapController()
-
+    
     var mapView: MKMapView!
     var model: MapModel!
     var delegate: UIViewController!
@@ -26,22 +27,69 @@ class MapController : NSObject {
         }
     }
     
+    lazy var sm = SessionManager.shared
+    var annotations : [Annotation]
     
+    private override init(){
+        
+        annotations = [Annotation]()
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(plotAnnotations(notification:)), name: Notification.Name(rawValue:"plotAnnottions"), object: nil)
+        
+    }
+    
+    @objc func plotAnnotations(notification: NSNotification){
+        if let userInfo = notification.userInfo {
+            if let id = userInfo["sessionId"] as? String {
+                let session = sm.sessions.filter { $0.id == id }.first
+                if let s = session {
+                    self.annotations = s.annotations
+                    self.mapView.addAnnotations(self.annotations)
+                }
+            }
+        }
+    }
+    
+   
     
     func initialView(animated: Bool){
         let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
         mapView.setVisibleMapRect(self.mapRect, edgePadding: ei, animated: animated)
     }
-        
+    
     
 }
 extension MapController : MKMapViewDelegate {
     
-
+    
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         state = state != nil ? false : true
     }
-   
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+        if annotation is MKUserLocation {
+            return nil
+        }
+        else if let annotation = annotation as? Annotation {
+            let identifier = NSStringFromClass(Annotation.self)
+            let view: MKMarkerAnnotationView =  MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            
+            view.animatesWhenAdded = false
+            view.canShowCallout = false
+            view.glyphImage = UIImage(named: annotation.type)
+            
+            if annotation.title == "Destination" {
+                view.markerTintColor = #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1)
+            } else {
+                view.markerTintColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+            }
+            return view
+            
+        } else {
+            return nil
+        }
+    }
+    
     
     
 }

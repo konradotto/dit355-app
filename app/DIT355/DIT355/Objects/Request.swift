@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-struct RequestModel : Codable {
+struct Request : Codable {
     
     var deviceId        : String
     var requestId       : String

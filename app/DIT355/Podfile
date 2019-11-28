@@ -5,4 +5,5 @@
 	target 'DIT355' do
     	pod 'CocoaMQTT'
 	pod 'SwiftyJSON', '~> 4.0'
+	pod 'NotificationBannerSwift', '~> 3.0.0'
 end
