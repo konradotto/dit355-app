@@ -21,13 +21,14 @@ class SessionTableViewController: UITableViewController {
     
 
     
-    override func viewWillAppear(_ animated: Bool) {
-        if dataArray.isEmpty{
-            dummyData()
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        if dataArray.isEmpty{
+//            self.dataArray = sm.sessions
+//            //dummyData()
+//        }
+//    }
     func initTable(){
-        dataArray = sm.sessions
+        dataArray = [Session]()
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,7 +37,20 @@ class SessionTableViewController: UITableViewController {
     }
     
     @objc func updateTableData(notification: NSNotification){
-        self.tableView.reloadData()
+       
+        if let userInfo = notification.userInfo {
+            if let session = userInfo["session"] as? Session {
+                
+                dataArray.append(session)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        
+        
+        
     }
     
     
@@ -68,8 +82,8 @@ class SessionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let session = dataArray[indexPath.row]
-        NotificationCenter.default.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["sessionId" : session.id])
-        //self.performSegue(withIdentifier: "navContainer", sender: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
+        self.performSegue(withIdentifier: "navContainer", sender: self)
         
     }
     

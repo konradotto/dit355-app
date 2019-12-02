@@ -24,7 +24,7 @@ struct Request : Codable {
     
     var description: String {
         get{
-            return String("Request: \n\t Device ID: \(deviceId) \n\t Request ID: \(requestId) \n\t Source: \t latitude: \(originLat), longitude:  \(originLong) \n\t Destination: \t latitude:  \(destinationLat) , longitude: \(destinationLong) \n\t Departure Time: \(departureTime) \n\t Purpose: \(purpose) \n\t Type: \(type)")
+            return String("Request: \n\t Device ID: \(deviceId) \n\t Request ID: \(requestId) \n\t Source: \t latitude: \(originLat), longitude:  \(originLong) \n\t Destination: \t latitude:  \(destinationLat) , longitude: \(destinationLong) \n\t Departure Time: \(departureTime) \n\t Purpose: \(purpose)")
         }
     }
     

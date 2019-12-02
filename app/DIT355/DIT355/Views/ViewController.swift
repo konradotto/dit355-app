@@ -23,11 +23,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func dataDrivenButtonAction(_ sender: Any) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue:"dataMode"), object: nil)
+        AnnotationManager.shared.isInteractiveMode = false
+        let _ = MqttManager.shared
     }
     
     @IBAction func interactiveButtonAction(_ sender: Any) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue:"interactiveMode"), object: nil)
+        AnnotationManager.shared.isInteractiveMode = true
+        let _ = MqttManager.shared
     }
    
    

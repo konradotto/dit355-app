@@ -18,10 +18,10 @@ class Annotation: NSObject, MKAnnotation {
     var purpose         : String
     var id              : String
     
-    init(title: String, coordinate: CLLocationCoordinate2D, type: String?,purpose: String, depTime: TimeInterval?, id: String) {
+    init(title: String, coordinate: CLLocationCoordinate2D,purpose: String,type: String, depTime: TimeInterval?, id: String) {
         self.title          = title
         self.coordinate     = coordinate
-        self.type           = type ?? "undefined"
+        self.type           =  type
         self.departureTime  = depTime
         self.purpose        = purpose
         self.id             = id

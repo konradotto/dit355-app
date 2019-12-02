@@ -8,20 +8,43 @@
 
 import Foundation
 import CocoaMQTT
+import NotificationBannerSwift
 
 class MqttManager{
     
+    
+    //"test.mosquitto.org", 1883, "some/test/planes"
     static let shared = MqttManager()
-    private let host = "test.mosquitto.org"
+    private let host = "192.168.43.237"
     private let port: UInt16 = 1883
-    private let topic = "some/test/planes"
+    private let topic = "travel_requests"
     private var mqtt: CocoaMQTT?
     
-    
+    private lazy var unsubBanner = NotificationBanner(title: "Receiving messages", subtitle: "tap to unsubscribe", style: .info)
+    private lazy var initBanner = NotificationBanner(title: "Succefully conntected", subtitle: "tap to subscribe", style: .success)
+    private lazy var subBanner = NotificationBanner(title: "Succefully unsubscribed", subtitle: "tap to re-subscribe", style:.warning)
     
     private init() {
         print(">> init connection")
         establishConnection()
+        
+        initBanner.autoDismiss = false
+        subBanner.autoDismiss = false
+        unsubBanner.autoDismiss = false
+        
+       
+        initBanner.onTap = {
+            self.initBanner.dismiss()
+            self.subscribeTopic()
+        }
+        subBanner.onTap = {
+            self.subBanner.dismiss()
+            self.subscribeTopic()
+        }
+        unsubBanner.onTap = {
+            self.unsubBanner.dismiss()
+            self.unsubscribeTopic()
+        }
     }
     
     
@@ -91,6 +114,7 @@ extension MqttManager : CocoaMQTTDelegate {
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         print(">> Did connect acknowledge")
+        initBanner.show(bannerPosition: .bottom)
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
@@ -104,7 +128,8 @@ extension MqttManager : CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
         print(">> Did receive message")
         let _ =  message.string != nil ? print(">> Message topic: \(message.topic)\n Message string: \(message.string!)") :(())
-        //ConversionManager.shared.convertToStruct(message.string!)
+        AnnotationManager.shared.toStruct(message.string!)
+        let _ = !unsubBanner.isDisplaying ? unsubBanner.show(bannerPosition: .bottom) : (())
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
@@ -113,6 +138,26 @@ extension MqttManager : CocoaMQTTDelegate {
     
     func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
         print(">> Did unsubscribe from topic: ",topic)
+        subBanner.show(bannerPosition: .bottom)
+    }
+    
+    
+}
+extension MqttManager : NotificationBannerDelegate {
+    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
+         print("banner will appear")
+    }
+    
+    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
+         print("banner did appear")
+    }
+    
+    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
+        print("banner will disappear")
+    }
+    
+    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
+         print("banner did disappear")
     }
     
     

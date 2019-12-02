@@ -18,16 +18,12 @@ class AnnotationManager {
     private lazy var mc = MapController.shared
     var isInteractiveMode : Bool!
     
-    private init(){
-        NotificationCenter.default.addObserver(self, selector: #selector(dataMode(notification:)), name: Notification.Name(rawValue:"dataMode"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(interactiveMode(notification:)), name: Notification.Name(rawValue:"interactiveMode"), object: nil)
-    }
+    private init(){}
     
     func toStruct(_ str: String){
         
         let jsonData  = JSON(parseJSON: str)
-        let jsonObjet = jsonData["travelRequest"]
-        self.toAnnotations(Request(obj: jsonObjet))
+        self.toAnnotations(Request(obj: jsonData))
     }
     
     
@@ -37,14 +33,14 @@ class AnnotationManager {
         var anns = [Annotation]()
         anns.append(Annotation(title: "Source",
                                       coordinate: CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong),
-                                      type: rm.type,
                                       purpose: rm.purpose,
+                                      type: rm.type,
                                       depTime: rm.departureTime,
                                       id: rm.id))
         anns.append(Annotation(title: "Destination",
                                       coordinate: CLLocationCoordinate2D(latitude: rm.destinationLat, longitude: rm.destinationLong),
-                                      type: rm.type,
                                       purpose: rm.purpose,
+                                      type: rm.type,
                                       depTime: rm.departureTime,
                                       id: rm.id))
         
@@ -54,28 +50,29 @@ class AnnotationManager {
     func checkModes(_ anns: [Annotation]){
         
         if isInteractiveMode {
+            print("interactiveMode: enabled")
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }
-            if self.annotations.count > 1999 {
+            if self.annotations.count > 18 {
                 let title = "Session: \(sm.sessions.count + 1)"
                 let date = Date()
-                sm.sessions.append(Session(title: title, date: date, anns: self.annotations))
+                var anns = [Annotation]()
+                (0 ..< self.annotations.count).forEach { (i) in
+                    anns.append(annotations[i])
+                }
+                let s = Session(title: title, date: date, anns: self.annotations)
+                sm.sessions.append(s)
                 self.annotations.removeAll()
-                NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil, userInfo: ["session" : s])
+                print("session init")
             }
-        } else {
+        } else { // prolly async
             mc.mapView.addAnnotations(anns)
         }
        
     }
     
-    @objc func interactiveMode(notification: NSNotification){
-        self.isInteractiveMode = true
-    }
-    
-    @objc func dataMode(notification: NSNotification){
-        self.isInteractiveMode = false
-    }
+   
     
 }

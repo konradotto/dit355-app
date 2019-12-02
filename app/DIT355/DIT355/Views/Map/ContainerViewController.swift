@@ -31,7 +31,10 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        MapController.shared.dismiss()
     }
     
     //MARK: - UISetup

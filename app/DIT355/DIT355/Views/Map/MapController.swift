@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import NotificationBannerSwift
 
 
 class MapController : NSObject {
@@ -31,7 +32,6 @@ class MapController : NSObject {
     var annotations : [Annotation]
     
     private override init(){
-        
         annotations = [Annotation]()
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(plotAnnotations(notification:)), name: Notification.Name(rawValue:"plotAnnottions"), object: nil)
@@ -39,18 +39,27 @@ class MapController : NSObject {
     }
     
     @objc func plotAnnotations(notification: NSNotification){
+        
+        
         if let userInfo = notification.userInfo {
-            if let id = userInfo["sessionId"] as? String {
-                let session = sm.sessions.filter { $0.id == id }.first
-                if let s = session {
-                    self.annotations = s.annotations
+            if let session = userInfo["session"] as? Session {
+                
+                (0..<session.annotations.count).forEach { (i) in
+                    self.annotations.append(session.annotations[i])
+                }
+                DispatchQueue.main.async {
                     self.mapView.addAnnotations(self.annotations)
                 }
             }
         }
+        
     }
     
-   
+    func dismiss(){
+        
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.annotations.removeAll()
+    }
     
     func initialView(animated: Bool){
         let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)

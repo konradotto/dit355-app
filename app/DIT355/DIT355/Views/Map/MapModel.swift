@@ -49,7 +49,7 @@ class MapModel: UIView {
             self.addSubview(compassButton)
             compassButton.translatesAutoresizingMaskIntoConstraints = false
             compassButton.leftAnchor.constraint(equalTo: mapView.leftAnchor, constant: 15).isActive = true
-            compassButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 80).isActive = true
+            compassButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
             
         }
     
@@ -62,7 +62,7 @@ class MapModel: UIView {
         resetButton.setImage(UIImage(named: "arrow"), for: .normal)
         self.addSubview(resetButton)
         resetButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
-        resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 80).isActive = true
+        resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
         
     }
     

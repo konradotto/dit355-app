@@ -21,7 +21,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         controller.initialView(animated: false)
-                
+        
     }
     
     override func loadView() {
