@@ -37,6 +37,10 @@ class ContainerViewController: UIViewController {
         MapController.shared.dismiss()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
+    
     //MARK: - UISetup
     private func initView(){
         displayMap()

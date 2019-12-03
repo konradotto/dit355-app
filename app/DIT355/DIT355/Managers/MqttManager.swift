@@ -15,22 +15,26 @@ class MqttManager{
     
     //"test.mosquitto.org", 1883, "some/test/planes"
     static let shared = MqttManager()
-    private let host = "192.168.43.237"
+    private let host = "192.168.0.100"
     private let port: UInt16 = 1883
     private let topic = "travel_requests"
     private var mqtt: CocoaMQTT?
     
-    private lazy var unsubBanner = NotificationBanner(title: "Receiving messages", subtitle: "tap to unsubscribe", style: .info)
-    private lazy var initBanner = NotificationBanner(title: "Succefully conntected", subtitle: "tap to subscribe", style: .success)
-    private lazy var subBanner = NotificationBanner(title: "Succefully unsubscribed", subtitle: "tap to re-subscribe", style:.warning)
+    private lazy var unsubBanner = FloatingNotificationBanner(title: "Succefully subscribed to topic: \(topic)", subtitle: "tap to unsubscribe", style: .info)
+    private lazy var initBanner  = FloatingNotificationBanner(title: "Succefully conntected to host: \(host)", subtitle: "tap to subscribe", style: .success)
+    private lazy var subBanner   = FloatingNotificationBanner(title: "Succefully unsubscribed from topic: \(topic)", subtitle: "tap to re-subscribe", style:.warning)
+    private lazy var reconBanner = FloatingNotificationBanner(title: "Disconntected from host: \(host)", subtitle: "tap to try re-connect", style: .danger)
+    
     
     private init() {
         print(">> init connection")
         establishConnection()
         
-        initBanner.autoDismiss = false
-        subBanner.autoDismiss = false
+        initBanner.autoDismiss  = false
+        subBanner.autoDismiss   = false
         unsubBanner.autoDismiss = false
+        reconBanner.autoDismiss = false
+        
         
        
         initBanner.onTap = {
@@ -45,13 +49,19 @@ class MqttManager{
             self.unsubBanner.dismiss()
             self.unsubscribeTopic()
         }
+        
+        reconBanner.onTap = {
+            self.reconBanner.dismiss()
+            self.establishConnection()
+        }
+        
     }
     
     
     func establishConnection() {
         let clientId = self.clientID()
         mqtt = CocoaMQTT(clientID: clientId, host: host, port: port)
-        mqtt!.keepAlive = 60
+        mqtt!.keepAlive = 30
         mqtt!.delegate = self
         let _ = mqtt!.connect()
         print("Client ID: ",clientId)
@@ -110,11 +120,15 @@ extension MqttManager : CocoaMQTTDelegate {
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         print(">> Did disconnect")
         let _ = err != nil ? (print(">> Error: ",err.debugDescription)) :(())
+        subBanner.dismiss()
+        unsubBanner.dismiss()
+        initBanner.dismiss()
+        let _ = !reconBanner.isDisplaying ? (reconBanner.show(bannerPosition: .bottom)) : (())
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         print(">> Did connect acknowledge")
-        initBanner.show(bannerPosition: .bottom)
+        let _ = !initBanner.isDisplaying ? initBanner.show(bannerPosition: .bottom) : (())
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
@@ -129,36 +143,37 @@ extension MqttManager : CocoaMQTTDelegate {
         print(">> Did receive message")
         let _ =  message.string != nil ? print(">> Message topic: \(message.topic)\n Message string: \(message.string!)") :(())
         AnnotationManager.shared.toStruct(message.string!)
-        let _ = !unsubBanner.isDisplaying ? unsubBanner.show(bannerPosition: .bottom) : (())
+        //let _ = !unsubBanner.isDisplaying ? unsubBanner.show(bannerPosition: .bottom) : (())
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
         print(">> Did subscribe to topic: ",topic)
+        let _ = !unsubBanner.isDisplaying ? unsubBanner.show(bannerPosition: .bottom) : (())
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
         print(">> Did unsubscribe from topic: ",topic)
-        subBanner.show(bannerPosition: .bottom)
+        let _ = !subBanner.isDisplaying ? (subBanner.show(bannerPosition: .bottom)) : (())
     }
     
     
 }
-extension MqttManager : NotificationBannerDelegate {
-    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
-         print("banner will appear")
-    }
-    
-    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
-         print("banner did appear")
-    }
-    
-    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
-        print("banner will disappear")
-    }
-    
-    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
-         print("banner did disappear")
-    }
-    
-    
-}
+//extension MqttManager : NotificationBannerDelegate {
+//    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
+//         print("banner will appear")
+//    }
+//
+//    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
+//         print("banner did appear")
+//    }
+//
+//    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
+//        print("banner will disappear")
+//    }
+//
+//    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
+//         print("banner did disappear")
+//    }
+//
+//
+//}

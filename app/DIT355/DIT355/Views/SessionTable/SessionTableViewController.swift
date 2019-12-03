@@ -21,18 +21,20 @@ class SessionTableViewController: UITableViewController {
     
 
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if dataArray.isEmpty{
-//            self.dataArray = sm.sessions
-//            //dummyData()
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        if dataArray.count == 0{
+            print("arr count: ",dataArray.count)
+            print("once")
+            //AnnotationManager.shared.dummyRequests()
+        }
+    }
+    
     func initTable(){
         dataArray = [Session]()
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        //tableView.tableFooterView = UIView(frame: CGRect.zero)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
     }
     
@@ -54,16 +56,7 @@ class SessionTableViewController: UITableViewController {
     }
     
     
-    func dummyData(){
-        
-        (0...10).forEach { (i) in
-            let s = Session()
-            s.title = "session \(i)"
-            dataArray.append(s)
-        }
-        tableView.reloadData()
-        
-    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
@@ -82,6 +75,7 @@ class SessionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let session = dataArray[indexPath.row]
+        //print("index: ",indexPath.description)
         NotificationCenter.default.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
         self.performSegue(withIdentifier: "navContainer", sender: self)
         

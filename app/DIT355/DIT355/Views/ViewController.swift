@@ -13,8 +13,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var dataDrivenMode: UIButton!
     @IBOutlet weak var interactiveMode: UIButton!
     
+    var mqtt: MqttManager!
+    var annotationManager: AnnotationManager!
+    var mapController: MapController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        annotationManager = AnnotationManager.shared
+        mapController = MapController.shared
         self.navigationItem.title = "Main"
         self.dataDrivenMode.layer.cornerRadius = 10
         self.interactiveMode.layer.cornerRadius = 10
@@ -22,14 +28,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        guard mqtt != nil else { return mqtt = MqttManager.shared }
+    }
+    
     @IBAction func dataDrivenButtonAction(_ sender: Any) {
-        AnnotationManager.shared.isInteractiveMode = false
-        let _ = MqttManager.shared
+        annotationManager.isInteractiveMode = false
+        
+        
     }
     
     @IBAction func interactiveButtonAction(_ sender: Any) {
-        AnnotationManager.shared.isInteractiveMode = true
-        let _ = MqttManager.shared
+        annotationManager.isInteractiveMode = true
     }
    
    

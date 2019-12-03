@@ -19,6 +19,7 @@
 		CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEC2379AD80004BEF17 /* MapModel.swift */; };
 		CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEE2379AD8D004BEF17 /* MapController.swift */; };
 		CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCF02379E533004BEF17 /* MapViewController.swift */; };
+		CA4B6FBF2396967900D3F562 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4B6FBE2396967900D3F562 /* AnnotationView.swift */; };
 		CA82DD3D2382C98C00856CA6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD3C2382C98C00856CA6 /* SessionManager.swift */; };
 		CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */; };
 		CA9D6998238E80A3000ABBAA /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */; };
@@ -47,6 +48,7 @@
 		CA39BCEC2379AD80004BEF17 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		CA39BCEE2379AD8D004BEF17 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CA39BCF02379E533004BEF17 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CA4B6FBE2396967900D3F562 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		CA82DD3C2382C98C00856CA6 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				CAF9AE20237C3D880032E1D0 /* Request.swift */,
 				CAD027C6237D53F7009EFA32 /* Annotation.swift */,
 				CAD027C8237D5621009EFA32 /* Session.swift */,
+				CA4B6FBE2396967900D3F562 /* AnnotationView.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA39BCE92379AA8C004BEF17 /* SceneDelegate.swift in Sources */,
+				CA4B6FBF2396967900D3F562 /* AnnotationView.swift in Sources */,
 				CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */,
 				CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */,
 				CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 import NotificationBannerSwift
+import CoreLocation
 
 
 class MapController : NSObject {
@@ -30,11 +31,20 @@ class MapController : NSObject {
     
     lazy var sm = SessionManager.shared
     var annotations : [Annotation]
+    let geoCoder = CLGeocoder()
+    var placeMark: CLPlacemark! {
+        didSet{
+            self.addressString = self.parseAddress(placeMark)
+        }
+    }
+    var addressString = String()
+    
     
     private override init(){
         annotations = [Annotation]()
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(plotAnnotations(notification:)), name: Notification.Name(rawValue:"plotAnnottions"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(filterAnnottions(notification:)), name: Notification.Name(rawValue:"filterType"), object: nil)
         
     }
     
@@ -43,10 +53,7 @@ class MapController : NSObject {
         
         if let userInfo = notification.userInfo {
             if let session = userInfo["session"] as? Session {
-                
-                (0..<session.annotations.count).forEach { (i) in
-                    self.annotations.append(session.annotations[i])
-                }
+                self.annotations = session.annotations
                 DispatchQueue.main.async {
                     self.mapView.addAnnotations(self.annotations)
                 }
@@ -66,6 +73,68 @@ class MapController : NSObject {
         mapView.setVisibleMapRect(self.mapRect, edgePadding: ei, animated: animated)
     }
     
+    func getAddress(_ ann: Annotation){
+        
+        let clLoc = CLLocation(latitude: ann.coordinate.latitude, longitude: ann.coordinate.longitude)
+        self.geoCoder.reverseGeocodeLocation(clLoc, completionHandler: { (placemark, error) in
+            if let error = error as? CLError {
+                print("GeoCoding error: ", error.localizedDescription)
+                return
+            } else if let placemark = placemark?.first {
+                self.placeMark = placemark
+            }
+        })
+    }
+    
+    func parseAddress(_ selectedItem:CLPlacemark) -> String {
+        let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
+        if !firstSpace.elementsEqual(""){
+            return "\(selectedItem.thoroughfare!) \(selectedItem.subThoroughfare!)"
+        }
+        else {
+            return "Address not available :("
+        }
+    }
+    
+    func addAnnotations(_ ann: Annotation){
+        
+        self.annotations.append(ann)
+        
+        DispatchQueue.main.async {
+            self.mapView.addAnnotation(ann)
+        }
+        
+    }
+    
+    @objc func filterAnnottions(notification: NSNotification){
+        if let userInfo = notification.userInfo {
+            if let filter = userInfo["filter"] as? String {
+                guard !filter.contains("none")
+                    else {
+                        var annos = [Annotation]()
+                        if filter.contains("bus"){
+                            annos = self.annotations.filter({$0.type == "bus"})
+                        }
+                        else if filter.contains("tram"){
+                            annos = self.annotations.filter({$0.type == "tram"})
+                        }
+                        else if filter.contains("ferry"){
+                            annos = self.annotations.filter({$0.type == "ferry"})
+                        }
+                        DispatchQueue.main.async {
+                            self.mapView.addAnnotations(annos)
+                        }
+                        return
+                }
+                let annsToRemove = self.annotations.filter {$0.type == filter}
+                DispatchQueue.main.async {
+                    self.mapView.removeAnnotations(annsToRemove)
+                }
+                
+            }
+        }
+        
+    }
     
 }
 extension MapController : MKMapViewDelegate {
@@ -80,11 +149,16 @@ extension MapController : MKMapViewDelegate {
             return nil
         }
         else if let annotation = annotation as? Annotation {
+            
             let identifier = NSStringFromClass(Annotation.self)
             let view: MKMarkerAnnotationView =  MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
-            view.animatesWhenAdded = false
-            view.canShowCallout = false
+            view.isEnabled = true
+            view.animatesWhenAdded = true
+            view.canShowCallout = true
+            let btn = UIButton(type: .detailDisclosure)
+            view.rightCalloutAccessoryView = btn
+            
             view.glyphImage = UIImage(named: annotation.type)
             
             if annotation.title == "Destination" {
@@ -97,6 +171,24 @@ extension MapController : MKMapViewDelegate {
         } else {
             return nil
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation as? Annotation {
+            self.getAddress(annotation)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if let _ = view.annotation as? Annotation {
+            let title = "Address"
+            let ac = UIAlertController(title: title, message: self.addressString, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.delegate.present(ac, animated: true)
+        }
+        
+        
     }
     
     

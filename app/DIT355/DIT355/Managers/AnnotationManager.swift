@@ -47,32 +47,56 @@ class AnnotationManager {
         checkModes(anns)
     }
  
+  
+    
+    
     func checkModes(_ anns: [Annotation]){
         
         if isInteractiveMode {
-            print("interactiveMode: enabled")
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }
             if self.annotations.count > 18 {
                 let title = "Session: \(sm.sessions.count + 1)"
                 let date = Date()
-                var anns = [Annotation]()
+                var annos = [Annotation]()
                 (0 ..< self.annotations.count).forEach { (i) in
-                    anns.append(annotations[i])
+                    annos.append(annotations[i])
                 }
-                let s = Session(title: title, date: date, anns: self.annotations)
+                let s = Session(title: title, date: date, anns: annos)
                 sm.sessions.append(s)
                 self.annotations.removeAll()
                 NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil, userInfo: ["session" : s])
-                print("session init")
+                //print("session init")
             }
         } else { // prolly async
-            mc.mapView.addAnnotations(anns)
+            for ann in anns {
+                mc.addAnnotations(ann)
+            }
         }
        
     }
     
+    
+//    func dummyRequests(){
+//
+//        print("dummyRequests started")
+//        let minLat = 57.562184, minLong = 11.7018663, maxLat = 57.8580397, maxLong = 12.2068462
+//
+//        (0..<51).forEach { (i) in
+//            let originRandomLat = Double.random(in: minLat...maxLat)
+//            let originRandomLong = Double.random(in: minLong...maxLong)
+//            let targetRandomLat = Double.random(in: minLat...maxLat)
+//            let targetRandomLong = Double.random(in: minLong...maxLong)
+//            let type = ["bus","tram","ferry"].randomElement()
+//            let req = Request(deviceId: String("deviceId"), requestId: String("requestId"), sourceLat: originRandomLat, sourceLong: originRandomLong, destinationLat: targetRandomLat, destinationLong: targetRandomLong, departureTime: 2000.005, purpose: "purpose", type: type!)
+//            toAnnotations(req)
+//
+//        }
+//
+//
+//
+//    }
    
     
 }
