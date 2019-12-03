@@ -10,60 +10,60 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    
+    //MARK: - ViewController Variables
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var menuView: UIView!
     
-    
-    //MARK: - Variables
-    
-    let blackTransparentViewTag = 02271994
-    var isActive: Bool = false
-    
-    //MARK: - ViewController Variables
     lazy var mapVC: UIViewController? = {
         let map = self.storyboard?.instantiateViewController(withIdentifier: "mapView")
         return map
     }()
-    
     lazy var menuVC: UIViewController? = {
         let menu = self.storyboard?.instantiateViewController(withIdentifier: "menuView")
         return menu
     }()
     
+    //MARK: - Class Variables
+    let blackTransparentViewTag = 666
+    var isActive = false
+    
+    //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        initView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        MapController.shared.dismiss()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
+    }
+    
+    //MARK: - UISetup
+    private func initView(){
         displayMap()
         addShadowToView()
         let btn =  UIBarButtonItem(image: UIImage.init(named: "burgerMenu"), style: .plain, target: self, action: #selector(openOrCloseSideMenu))
         navigationItem.rightBarButtonItem = btn
-        
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
- 
     
-    
-    //MARK: - UISetup
-    func displayMap(){
+    private func displayMap(){
+        // To display MapViewController in mapView
         if let vc = mapVC {
             self.addChild(vc)
             vc.didMove(toParent: self)
-            
-            vc.view.frame = self.mapView.bounds
             self.mapView.addSubview(vc.view)
-            
         }
     }
     
-    func displaySideMenu(){
-        // To display RearViewController in Side Menu View
+    private func displaySideMenu(){
+        // To display SideMenuViewController in menuView
         if !self.children.contains(menuVC!){
             if let vc = menuVC {
                 self.addChild(vc)
                 vc.didMove(toParent: self)
-                
                 vc.view.frame = self.menuView.bounds
                 self.menuView.addSubview(vc.view)
                 
@@ -73,7 +73,7 @@ class ContainerViewController: UIViewController {
     }
     
     //MARK: - Shadow View
-    func addBlackTransparentView() -> UIView{
+    private func addBlackTransparentView() -> UIView{
         //Black Shadow on MainView(i.e on TabBarController) when side menu is opened.
         let blackView = self.mapVC!.view.viewWithTag(blackTransparentViewTag)
         if blackView != nil{
@@ -92,7 +92,7 @@ class ContainerViewController: UIViewController {
         
     }
     
-    func addShadowToView(){
+    private func addShadowToView(){
         //Gives Illusion that main view is above the side menu
         self.mapView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).cgColor
         self.mapView.layer.shadowOffset = CGSize(width: -1, height: 1)
@@ -101,8 +101,6 @@ class ContainerViewController: UIViewController {
         self.mapView.layer.borderColor = UIColor.lightGray.cgColor
         self.mapView.layer.borderWidth = 0.2
     }
-    
-    
     
     
     //MARK: - Selector Methods
@@ -135,7 +133,7 @@ class ContainerViewController: UIViewController {
                     
                 }) { (_) in
                     self.isActive = true
-
+                    
                 }
             }
             
@@ -153,13 +151,9 @@ class ContainerViewController: UIViewController {
         }) { (_) in
             blackTransparentView?.removeFromSuperview()
             self.isActive = false
-
+            
         }
         
     }
-    
-    
-    
-    
     
 }

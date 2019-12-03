@@ -3,31 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FBF9CE42379A1C2003CC839 /* MqttManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBF9CE32379A1C2003CC839 /* MqttManager.swift */; };
+		B72427D0144A19A74058FEE5 /* Pods_DIT355.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BA8C7BFF44DD0E01E3E006 /* Pods_DIT355.framework */; };
 		CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D21237431D500A7AC6B /* AppDelegate.swift */; };
 		CA099D29237431D500A7AC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA099D27237431D500A7AC6B /* Main.storyboard */; };
 		CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CA099D2A237431D500A7AC6B /* DIT355.xcdatamodeld */; };
 		CA099D2E237431D600A7AC6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA099D2D237431D600A7AC6B /* Assets.xcassets */; };
 		CA099D31237431D600A7AC6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA099D2F237431D600A7AC6B /* LaunchScreen.storyboard */; };
+		CA21378423905379000453F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA21378323905379000453F3 /* ViewController.swift */; };
 		CA39BCE92379AA8C004BEF17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCE82379AA8C004BEF17 /* SceneDelegate.swift */; };
 		CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEC2379AD80004BEF17 /* MapModel.swift */; };
 		CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEE2379AD8D004BEF17 /* MapController.swift */; };
 		CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCF02379E533004BEF17 /* MapViewController.swift */; };
+		CA4B6FBF2396967900D3F562 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4B6FBE2396967900D3F562 /* AnnotationView.swift */; };
 		CA82DD3D2382C98C00856CA6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD3C2382C98C00856CA6 /* SessionManager.swift */; };
 		CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */; };
+		CA9D6998238E80A3000ABBAA /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */; };
 		CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C6237D53F7009EFA32 /* Annotation.swift */; };
-		CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C8237D5621009EFA32 /* RequestSession.swift */; };
+		CAD027C9237D5621009EFA32 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C8237D5621009EFA32 /* Session.swift */; };
 		CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */; };
 		CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */; };
 		CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */; };
-		CAF9AE22237C3D880032E1D0 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* RequestModel.swift */; };
-		CAF9AE23237C3D880032E1D0 /* TransportationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE21237C3D880032E1D0 /* TransportationType.swift */; };
+		CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* Request.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		589445FF73633FDF3CCED745 /* Pods-DIT355.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIT355.release.xcconfig"; path = "Target Support Files/Pods-DIT355/Pods-DIT355.release.xcconfig"; sourceTree = "<group>"; };
+		61BA8C7BFF44DD0E01E3E006 /* Pods_DIT355.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIT355.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F7D6A05D9520838A3452A9D /* Pods-DIT355.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIT355.debug.xcconfig"; path = "Target Support Files/Pods-DIT355/Pods-DIT355.debug.xcconfig"; sourceTree = "<group>"; };
+		9FBF9CE32379A1C2003CC839 /* MqttManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttManager.swift; sourceTree = "<group>"; };
 		CA099D1E237431D500A7AC6B /* DIT355.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIT355.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA099D21237431D500A7AC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA099D28237431D500A7AC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,19 +43,21 @@
 		CA099D2D237431D600A7AC6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA099D30237431D600A7AC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA099D32237431D600A7AC6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA21378323905379000453F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CA39BCE82379AA8C004BEF17 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CA39BCEC2379AD80004BEF17 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		CA39BCEE2379AD8D004BEF17 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CA39BCF02379E533004BEF17 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CA4B6FBE2396967900D3F562 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		CA82DD3C2382C98C00856CA6 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
 		CAD027C6237D53F7009EFA32 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
-		CAD027C8237D5621009EFA32 /* RequestSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSession.swift; sourceTree = "<group>"; };
+		CAD027C8237D5621009EFA32 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		CAF9AE20237C3D880032E1D0 /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
-		CAF9AE21237C3D880032E1D0 /* TransportationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportationType.swift; sourceTree = "<group>"; };
+		CAF9AE20237C3D880032E1D0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,17 +65,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B72427D0144A19A74058FEE5 /* Pods_DIT355.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C2FDF5D42F32E48060C0EAA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9F7D6A05D9520838A3452A9D /* Pods-DIT355.debug.xcconfig */,
+				589445FF73633FDF3CCED745 /* Pods-DIT355.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9FBF9CEA2379A8A4003CC839 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				61BA8C7BFF44DD0E01E3E006 /* Pods_DIT355.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CA099D15237431D500A7AC6B = {
 			isa = PBXGroup;
 			children = (
 				CA099D20237431D500A7AC6B /* DIT355 */,
 				CA099D1F237431D500A7AC6B /* Products */,
+				9FBF9CEA2379A8A4003CC839 /* Frameworks */,
+				8C2FDF5D42F32E48060C0EAA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,11 +110,10 @@
 		CA099D20237431D500A7AC6B /* DIT355 */ = {
 			isa = PBXGroup;
 			children = (
-				CA82DD3B2382C96D00856CA6 /* Backend */,
-				CA39BCEA2379AD55004BEF17 /* Views */,
 				CA39BCE323798E85004BEF17 /* Objects */,
+				CA82DD3B2382C96D00856CA6 /* Managers */,
+				CA39BCEA2379AD55004BEF17 /* Views */,
 				CA099D21237431D500A7AC6B /* AppDelegate.swift */,
-				CA099D27237431D500A7AC6B /* Main.storyboard */,
 				CA099D2D237431D600A7AC6B /* Assets.xcassets */,
 				CA099D2F237431D600A7AC6B /* LaunchScreen.storyboard */,
 				CA099D32237431D600A7AC6B /* Info.plist */,
@@ -97,10 +126,10 @@
 		CA39BCE323798E85004BEF17 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				CAF9AE20237C3D880032E1D0 /* RequestModel.swift */,
-				CAF9AE21237C3D880032E1D0 /* TransportationType.swift */,
+				CAF9AE20237C3D880032E1D0 /* Request.swift */,
 				CAD027C6237D53F7009EFA32 /* Annotation.swift */,
-				CAD027C8237D5621009EFA32 /* RequestSession.swift */,
+				CAD027C8237D5621009EFA32 /* Session.swift */,
+				CA4B6FBE2396967900D3F562 /* AnnotationView.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -108,6 +137,8 @@
 		CA39BCEA2379AD55004BEF17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CA099D27237431D500A7AC6B /* Main.storyboard */,
+				CA21378323905379000453F3 /* ViewController.swift */,
 				CAD027CA237D60B0009EFA32 /* SessionTable */,
 				CA39BCEB2379AD5C004BEF17 /* Map */,
 			);
@@ -126,12 +157,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		CA82DD3B2382C96D00856CA6 /* Backend */ = {
+		CA82DD3B2382C96D00856CA6 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				9FBF9CE32379A1C2003CC839 /* MqttManager.swift */,
 				CA82DD3C2382C98C00856CA6 /* SessionManager.swift */,
+				CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */,
 			);
-			path = Backend;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		CAD027CA237D60B0009EFA32 /* SessionTable */ = {
@@ -150,9 +183,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA099D35237431D600A7AC6B /* Build configuration list for PBXNativeTarget "DIT355" */;
 			buildPhases = (
+				D9DE0FA99995933EBC3BDD7E /* [CP] Check Pods Manifest.lock */,
 				CA099D1A237431D500A7AC6B /* Sources */,
 				CA099D1B237431D500A7AC6B /* Frameworks */,
 				CA099D1C237431D500A7AC6B /* Resources */,
+				2DE46EC4E57E64487D23A572 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -209,26 +244,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2DE46EC4E57E64487D23A572 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DIT355/Pods-DIT355-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DIT355/Pods-DIT355-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DIT355/Pods-DIT355-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9DE0FA99995933EBC3BDD7E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DIT355-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CA099D1A237431D500A7AC6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CA39BCE92379AA8C004BEF17 /* SceneDelegate.swift in Sources */,
+				CA4B6FBF2396967900D3F562 /* AnnotationView.swift in Sources */,
 				CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */,
 				CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */,
 				CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */,
 				CA099D2C237431D500A7AC6B /* DIT355.xcdatamodeld in Sources */,
-				CAF9AE23237C3D880032E1D0 /* TransportationType.swift in Sources */,
 				CA82DD3D2382C98C00856CA6 /* SessionManager.swift in Sources */,
-				CAF9AE22237C3D880032E1D0 /* RequestModel.swift in Sources */,
-				CAD027C9237D5621009EFA32 /* RequestSession.swift in Sources */,
+				CA9D6998238E80A3000ABBAA /* AnnotationManager.swift in Sources */,
+				CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */,
+				CAD027C9237D5621009EFA32 /* Session.swift in Sources */,
+				CA21378423905379000453F3 /* ViewController.swift in Sources */,
 				CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */,
 				CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,
 				CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */,
 				CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */,
 				CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */,
+				9FBF9CE42379A1C2003CC839 /* MqttManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +450,7 @@
 		};
 		CA099D36237431D600A7AC6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F7D6A05D9520838A3452A9D /* Pods-DIT355.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -389,6 +470,7 @@
 		};
 		CA099D37237431D600A7AC6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 589445FF73633FDF3CCED745 /* Pods-DIT355.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

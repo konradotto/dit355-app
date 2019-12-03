@@ -9,7 +9,7 @@
 import Foundation
 
 
-class RequestSession: NSObject {
+class Session: NSObject {
     
     var id : String
     var title : String

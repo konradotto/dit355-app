@@ -10,35 +10,53 @@ import UIKit
 
 class SessionTableViewController: UITableViewController {
     
-    private var dataArray: [RequestSession]!
-    lazy var sm = SessionManager.shared
+    private var dataArray: [Session]!
+    let sm = SessionManager.shared
     let cellId = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataArray = [RequestSession]()
-        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        initTable()
     }
     
 
     
     override func viewWillAppear(_ animated: Bool) {
-        dummyData()
+        if dataArray.count == 0{
+            print("arr count: ",dataArray.count)
+            print("once")
+            //AnnotationManager.shared.dummyRequests()
+        }
     }
     
-    func dummyData(){
-        
-        (0...10).forEach { (i) in
-            let s = RequestSession()
-            s.title = "session \(i)"
-            dataArray.append(s)
+    func initTable(){
+        dataArray = [Session]()
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.delegate = self
+        tableView.dataSource = self
+        //tableView.tableFooterView = UIView(frame: CGRect.zero)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
+    }
+    
+    @objc func updateTableData(notification: NSNotification){
+       
+        if let userInfo = notification.userInfo {
+            if let session = userInfo["session"] as? Session {
+                
+                dataArray.append(session)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
-        tableView.reloadData()
+        
+        
+        
         
     }
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
@@ -55,6 +73,10 @@ class SessionTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let session = dataArray[indexPath.row]
+        //print("index: ",indexPath.description)
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
         self.performSegue(withIdentifier: "navContainer", sender: self)
         
     }
