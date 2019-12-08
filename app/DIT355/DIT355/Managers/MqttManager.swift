@@ -15,7 +15,7 @@ class MqttManager{
     
     //"test.mosquitto.org", 1883, "some/test/planes"
     static let shared = MqttManager()
-    private let host = "192.168.0.100"
+    private let host = "192.168.4.134"
     private let port: UInt16 = 1883
     private let topic = "travel_requests"
     private var mqtt: CocoaMQTT?

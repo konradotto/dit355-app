@@ -33,13 +33,6 @@ class ContainerViewController: UIViewController {
         initView()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        MapController.shared.dismiss()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
     
     //MARK: - UISetup
     private func initView(){

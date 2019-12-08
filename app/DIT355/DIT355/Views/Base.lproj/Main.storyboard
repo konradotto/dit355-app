@@ -84,6 +84,45 @@
             </objects>
             <point key="canvasLocation" x="4315.9420289855079" y="-256.47321428571428"/>
         </scene>
+        <!--Charts View Controller-->
+        <scene sceneID="y7v-Eq-TYu">
+            <objects>
+                <viewController id="x7g-Wt-cZ3" customClass="ChartsViewController" customModule="DIT355" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jCV-hs-oIQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkU-W4-q0E" userLabel="Bar Chart View" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="565.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AV2-NL-gv3" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="565.5" width="414" height="242.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="AV2-NL-gv3" firstAttribute="leading" secondItem="d55-IG-5pT" secondAttribute="leading" id="QYd-SN-g1i"/>
+                            <constraint firstItem="AV2-NL-gv3" firstAttribute="bottom" secondItem="d55-IG-5pT" secondAttribute="bottom" id="WGk-ik-VQC"/>
+                            <constraint firstItem="JkU-W4-q0E" firstAttribute="top" secondItem="d55-IG-5pT" secondAttribute="top" id="adG-wU-wlI"/>
+                            <constraint firstItem="d55-IG-5pT" firstAttribute="trailing" secondItem="JkU-W4-q0E" secondAttribute="trailing" id="emv-w5-Vst"/>
+                            <constraint firstItem="AV2-NL-gv3" firstAttribute="height" secondItem="d55-IG-5pT" secondAttribute="height" multiplier="0.3" id="l5v-XC-eeD"/>
+                            <constraint firstItem="AV2-NL-gv3" firstAttribute="trailing" secondItem="d55-IG-5pT" secondAttribute="trailing" id="qCd-nR-OMX"/>
+                            <constraint firstItem="JkU-W4-q0E" firstAttribute="height" secondItem="d55-IG-5pT" secondAttribute="height" multiplier="0.7" id="ssE-rR-xso"/>
+                            <constraint firstItem="JkU-W4-q0E" firstAttribute="leading" secondItem="d55-IG-5pT" secondAttribute="leading" id="ypD-5n-b12"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="d55-IG-5pT"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChartView" destination="JkU-W4-q0E" id="g94-7V-8S1"/>
+                        <outlet property="pieChartView" destination="AV2-NL-gv3" id="Yru-Dp-ftT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D1d-rn-qH7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5398.5507246376819" y="111.83035714285714"/>
+        </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="XRA-LS-rXb">
             <objects>
@@ -137,6 +176,18 @@
                                             <action selector="busSwitchAction:" destination="QP8-bh-Bqd" eventType="valueChanged" id="I7M-nv-577"/>
                                         </connections>
                                     </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okj-Yr-r5C">
+                                        <rect key="frame" x="0.0" y="330" width="235" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Charts">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="x7g-Wt-cZ3" kind="presentation" id="MGW-ze-1dU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

@@ -32,6 +32,12 @@ class ViewController: UIViewController {
         guard mqtt != nil else { return mqtt = MqttManager.shared }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if !mapController.annotations.isEmpty {
+            mapController.dismiss()
+        }
+    }
+    
     @IBAction func dataDrivenButtonAction(_ sender: Any) {
         annotationManager.isInteractiveMode = false
         

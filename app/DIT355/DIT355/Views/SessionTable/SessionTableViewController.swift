@@ -19,16 +19,6 @@ class SessionTableViewController: UITableViewController {
         initTable()
     }
     
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if dataArray.count == 0{
-            print("arr count: ",dataArray.count)
-            print("once")
-            //AnnotationManager.shared.dummyRequests()
-        }
-    }
-    
     func initTable(){
         dataArray = [Session]()
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)

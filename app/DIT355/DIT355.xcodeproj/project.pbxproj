@@ -28,6 +28,7 @@
 		CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */; };
 		CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */; };
 		CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */; };
+		CAEC74902399587200108E60 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC748F2399587200108E60 /* ChartsViewController.swift */; };
 		CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* Request.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		CAEC748F2399587200108E60 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		CAF9AE20237C3D880032E1D0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,8 +141,10 @@
 			children = (
 				CA099D27237431D500A7AC6B /* Main.storyboard */,
 				CA21378323905379000453F3 /* ViewController.swift */,
+				CAEC748D239957FD00108E60 /* Container */,
 				CAD027CA237D60B0009EFA32 /* SessionTable */,
 				CA39BCEB2379AD5C004BEF17 /* Map */,
+				CAEC748E2399584C00108E60 /* Charts */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -151,8 +155,6 @@
 				CA39BCEC2379AD80004BEF17 /* MapModel.swift */,
 				CA39BCEE2379AD8D004BEF17 /* MapController.swift */,
 				CA39BCF02379E533004BEF17 /* MapViewController.swift */,
-				CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */,
-				CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -174,6 +176,23 @@
 				CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */,
 			);
 			path = SessionTable;
+			sourceTree = "<group>";
+		};
+		CAEC748D239957FD00108E60 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */,
+				CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		CAEC748E2399584C00108E60 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				CAEC748F2399587200108E60 /* ChartsViewController.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAEC74902399587200108E60 /* ChartsViewController.swift in Sources */,
 				CA39BCE92379AA8C004BEF17 /* SceneDelegate.swift in Sources */,
 				CA4B6FBF2396967900D3F562 /* AnnotationView.swift in Sources */,
 				CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */,
