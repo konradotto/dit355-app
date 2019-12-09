@@ -15,9 +15,9 @@ class MqttManager{
     
     //"test.mosquitto.org", 1883, "some/test/planes"
     static let shared = MqttManager()
-    private let host = "192.168.0.100"
-    private let port: UInt16 = 1883
-    private let topic = "travel_requests"
+    var host = "192.168.0.100"
+    var port: UInt16 = 1883
+    var topic = "travel_requests"
     private var mqtt: CocoaMQTT?
     
     private lazy var unsubBanner = FloatingNotificationBanner(title: "Succefully subscribed to topic: \(topic)", subtitle: "tap to unsubscribe", style: .info)

@@ -28,6 +28,7 @@
 		CAD027CC237D60D7009EFA32 /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */; };
 		CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */; };
 		CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */; };
+		CADB4B3B239E7F2C00AA48D4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADB4B3A239E7F2C00AA48D4 /* SettingViewController.swift */; };
 		CAEC74902399587200108E60 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC748F2399587200108E60 /* ChartsViewController.swift */; };
 		CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* Request.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		CAD027CB237D60D7009EFA32 /* SessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		CADB4B3A239E7F2C00AA48D4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CAEC748F2399587200108E60 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		CAF9AE20237C3D880032E1D0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 				CAD027CA237D60B0009EFA32 /* SessionTable */,
 				CA39BCEB2379AD5C004BEF17 /* Map */,
 				CAEC748E2399584C00108E60 /* Charts */,
+				CADB4B39239E7EF300AA48D4 /* Setting */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +179,14 @@
 				CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */,
 			);
 			path = SessionTable;
+			sourceTree = "<group>";
+		};
+		CADB4B39239E7EF300AA48D4 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				CADB4B3A239E7F2C00AA48D4 /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		CAEC748D239957FD00108E60 /* Container */ = {
@@ -325,6 +336,7 @@
 				CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */,
 				CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,
+				CADB4B3B239E7F2C00AA48D4 /* SettingViewController.swift in Sources */,
 				CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */,
 				CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */,
 				CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */,
