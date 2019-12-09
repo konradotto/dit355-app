@@ -57,7 +57,7 @@ class SessionTableViewController: UITableViewController {
         let session = dataArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SubtitleTableViewCell
         cell?.textLabel?.text = session.title
-        cell?.detailTextLabel?.text = "\(session.annotations.count) requests"
+        cell?.detailTextLabel?.text = "\(session.annotations.count/2) requests"
         return cell!
     }
     

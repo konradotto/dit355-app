@@ -14,7 +14,9 @@ class AnnotationManager {
     
     static let shared = AnnotationManager()
     var annotations = [Annotation]()
-    private lazy var sm = SessionManager.shared
+    private lazy var sessionsCount = 0
+    private let sessionSize = 98
+    //private lazy var sm = SessionManager.shared
     private lazy var mc = MapController.shared
     var isInteractiveMode : Bool!
     
@@ -56,16 +58,12 @@ class AnnotationManager {
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }
-            if self.annotations.count > 18 {
-                let title = "Session: \(sm.sessions.count + 1)"
-                let date = Date()
-                var annos = [Annotation]()
-                (0 ..< self.annotations.count).forEach { (i) in
-                    annos.append(annotations[i])
-                }
-                let s = Session(title: title, date: date, anns: annos)
-                sm.sessions.append(s)
+            if self.annotations.count > self.sessionSize {
+                let title = "Session: \(self.sessionsCount + 1)"
+                let s = Session(title: title, date: Date(), anns: self.annotations)
+                //sm.sessions.append(s)
                 self.annotations.removeAll()
+                self.sessionsCount += 1
                 NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil, userInfo: ["session" : s])
                 //print("session init")
             }
