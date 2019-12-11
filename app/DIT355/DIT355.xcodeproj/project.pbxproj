@@ -165,9 +165,9 @@
 		CA82DD3B2382C96D00856CA6 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */,
 				9FBF9CE32379A1C2003CC839 /* MqttManager.swift */,
 				CA82DD3C2382C98C00856CA6 /* SessionManager.swift */,
-				CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";

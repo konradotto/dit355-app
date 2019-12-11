@@ -12,7 +12,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var dataDrivenMode: UIButton!
     @IBOutlet weak var interactiveMode: UIButton!
-    @IBOutlet weak var settingButton: UIButton!
     
     var mqtt: MqttManager!
     var annotationManager: AnnotationManager!
@@ -25,10 +24,7 @@ class ViewController: UIViewController {
         self.navigationItem.title = "Main"
         self.dataDrivenMode.layer.cornerRadius = 10
         self.interactiveMode.layer.cornerRadius = 10
-        self.settingButton.layer.cornerRadius = 10
-        
-        // Do any additional setup after loading the view.
-    }
+       }
     
     override func viewWillDisappear(_ animated: Bool) {
         guard mqtt != nil else { return mqtt = MqttManager.shared }

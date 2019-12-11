@@ -121,8 +121,8 @@ class ContainerViewController: UIViewController {
             }) { (_) in
                 UIView.animate(withDuration: 0.3, animations: {
                     
-                    self.addBlackTransparentView().alpha = self.view.bounds.width * 0.8/(self.view.bounds.width * 1.8)
-                    self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.8), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
+                    self.addBlackTransparentView().alpha = self.view.bounds.width * 0.6/(self.view.bounds.width * 1.6)
+                    self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.6), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
                     
                 }) { (_) in
                     self.isActive = true

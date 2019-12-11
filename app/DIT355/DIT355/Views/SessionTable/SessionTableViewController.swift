@@ -39,10 +39,6 @@ class SessionTableViewController: UITableViewController {
                 }
             }
         }
-        
-        
-        
-        
     }
     
     
