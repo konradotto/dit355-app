@@ -21,30 +21,8 @@ class MqttManager{
     var isConnected = false
     var isSubscribed = false
     
-    private lazy var subBanner = FloatingNotificationBanner(title: "Subscribed to topic", subtitle: "", style: .info)
-    private lazy var initBanner  = FloatingNotificationBanner(title: "Connection established", subtitle: "", style: .success)
-    private lazy var unsubBanner   = FloatingNotificationBanner(title: "Unsubscribed from topic", subtitle: "", style:.warning)
-    private lazy var dissBanner = FloatingNotificationBanner(title: "Disconntected from host :(", subtitle: "", style: .danger)
-    private lazy var errorBanner = FloatingNotificationBanner(title: "Connection error :(", subtitle: "try different host/port", style: .danger)
-    private lazy var bannerQueue = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
-    
     
     private init() {
-    initBanners()
-    }
-    
-    func initBanners(){
-        self.initBanner.autoDismiss = true
-        self.initBanner.duration = 2
-        self.subBanner.autoDismiss = true
-        self.subBanner.duration = 2
-        self.unsubBanner.autoDismiss = true
-        self.unsubBanner.duration = 2
-        self.dissBanner.autoDismiss = true
-        self.dissBanner.duration = 2
-        self.errorBanner.autoDismiss = true
-        self.errorBanner.duration = 2
-        
     }
     
     func establishConnection(host: String, port: UInt16) -> Bool {
@@ -59,11 +37,12 @@ class MqttManager{
             print(">> Client ID: ",clientId)
             self.host = host
             self.port = port
-            initBanner.subtitleLabel?.text = "host: \(host)"
-            
         }
         else {
             print("Connection error")
+            let errorBanner = NotificationBanner(title: "Connection error :(", subtitle: "try different host/port", style: .danger)
+            errorBanner.autoDismiss = true
+            errorBanner.duration = 2
             errorBanner.show()
         }
         return status
@@ -130,7 +109,9 @@ extension MqttManager : CocoaMQTTDelegate {
         NotificationCenter.default.post(name: Notification.Name(rawValue:"mqtt_status"), object: nil,userInfo: ["isConnected" : false])
         if err != nil { print(">> Error: ",err?.localizedDescription as Any) }
         self.isConnected = false
-        dissBanner.subtitleLabel?.text = "host: \(host)"
+        let dissBanner = NotificationBanner(title: "Disconntected from host :(", subtitle: "host: \(host)", style: .danger)
+        dissBanner.autoDismiss = true
+        dissBanner.duration = 2
         dissBanner.show()
     }
     
@@ -138,6 +119,9 @@ extension MqttManager : CocoaMQTTDelegate {
         print(">> Did connect acknowledge")
         NotificationCenter.default.post(name: Notification.Name(rawValue:"mqtt_status"), object: nil,userInfo: ["isConnected" : true])
         self.isConnected = true
+        let initBanner = NotificationBanner(title: "Connection established", subtitle: "host: \(mqtt.host)", style: .success)
+        initBanner.autoDismiss = true
+        initBanner.duration = 2
         initBanner.show()
     }
     
@@ -158,14 +142,18 @@ extension MqttManager : CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
         print(">> Did subscribe to topic: ",topic)
         self.isSubscribed = true
-        subBanner.subtitleLabel?.text = "topic: \(topic)"
+        let subBanner = NotificationBanner(title: "Subscribed to topic", subtitle: "topic: \(topic)", style: .info)
+        subBanner.autoDismiss = true
+        subBanner.duration = 2
         subBanner.show()
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
         print(">> Did unsubscribe from topic: ",topic)
         self.isSubscribed = false
-        unsubBanner.subtitleLabel?.text = "topic: \(topic)"
+        let unsubBanner = NotificationBanner(title: "Unsubscribed from topic", subtitle: "topic: \(topic)", style:.warning)
+        unsubBanner.autoDismiss = true
+        unsubBanner.duration = 2
         unsubBanner.show()
     }
     

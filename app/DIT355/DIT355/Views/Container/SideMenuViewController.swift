@@ -15,14 +15,37 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var tramSwitch: UISwitch!
     @IBOutlet weak var busSwitch: UISwitch!
     @IBOutlet weak var ferrySwitch: UISwitch!
+    @IBOutlet weak var sessionSwitch: UISwitch!
+    @IBOutlet weak var tableView: UITableView!
     
     private lazy var notificationCenter = NotificationCenter.default
+    private lazy var annotationManager  = AnnotationManager.shared
+    
+    private var dataArray: [Session]!
+    let cellId = "cell"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    func initTable(){
+        self.tableView.isHidden = false
+        dataArray = [Session]()
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        notificationCenter.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
+        annotationManager.isInteractiveMode = true
+    }
+    func deinitTable(){
+        annotationManager.isInteractiveMode = false
+        self.tableView.isHidden = true
+        dataArray = nil
+        notificationCenter.removeObserver(self, name: Notification.Name(rawValue:"reloadData"), object: nil)
+        
+    }
     
     @IBAction func tramSwitchAction(_ sender: Any) {
         
@@ -52,5 +75,50 @@ class SideMenuViewController: UIViewController {
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "none-ferry"])
         }
     }
+    @IBAction func sessionSwitchAction(_ sender: Any) {
+        
+        if sessionSwitch.isOn {
+            initTable()
+        }
+        else {
+            deinitTable()
+        }
+    }
+    
+    @objc func updateTableData(notification: NSNotification){
+       
+        if let userInfo = notification.userInfo {
+            if let session = userInfo["session"] as? Session {
+                
+                dataArray.append(session)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    
+}
+extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let session = dataArray[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SubtitleTableViewCell
+        cell?.textLabel?.text = session.title
+        cell?.detailTextLabel?.text = "\(session.annotations.count/2) requests"
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let session = dataArray[indexPath.row]
+        notificationCenter.post(name: Notification.Name(rawValue:"closeMenu"), object: nil)
+        notificationCenter.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
+    }
+    
     
 }

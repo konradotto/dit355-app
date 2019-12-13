@@ -50,11 +50,11 @@ class MapController : NSObject {
     
     @objc func plotAnnotations(notification: NSNotification){
         
-        
         if let userInfo = notification.userInfo {
             if let session = userInfo["session"] as? Session {
                 self.annotations = session.annotations
                 DispatchQueue.main.async {
+                    self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotations(self.annotations)
                 }
             }

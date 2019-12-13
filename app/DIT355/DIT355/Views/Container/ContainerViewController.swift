@@ -27,19 +27,27 @@ class ContainerViewController: UIViewController {
     let blackTransparentViewTag = 666
     var isActive = false
     
+    var mqtt: MqttManager!
+    var annotationManager: AnnotationManager!
+    
     //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        annotationManager = AnnotationManager.shared
+        mqtt = MqttManager.shared
         initView()
     }
     
     
     //MARK: - UISetup
     private func initView(){
+        self.navigationItem.title = "DIT-355"
         displayMap()
         addShadowToView()
         let btn =  UIBarButtonItem(image: UIImage.init(named: "burgerMenu"), style: .plain, target: self, action: #selector(openOrCloseSideMenu))
         navigationItem.rightBarButtonItem = btn
+        NotificationCenter.default.addObserver(self, selector: #selector(self.closeSideMenu), name: Notification.Name(rawValue:"closeMenu"), object: nil)
+        
     }
     
     private func displayMap(){
