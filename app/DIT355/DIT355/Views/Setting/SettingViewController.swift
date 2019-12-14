@@ -73,7 +73,7 @@ class SettingViewController: UIViewController {
             if subscribeButton.titleLabel?.text == "Subscribe" {
                 mqtt.subscribeTopic(topic: topic)
                 self.subscribeButton.setTitle("Unsubscribe", for: .normal)
-                self.subStatusTextView.textColor = .blue
+                self.subStatusTextView.textColor = .systemBlue
                 self.subStatusTextView.text = "Subscribed"
             }
             else {
@@ -237,7 +237,7 @@ class SettingViewController: UIViewController {
             self.topicTextField.text = topic
             if mqtt.isSubscribed{
                 self.subscribeButton.setTitle("Unsubscribe", for: .normal)
-                self.subStatusTextView.textColor = .blue
+                self.subStatusTextView.textColor = .systemBlue
                 self.subStatusTextView.text = "Subscribed"
             }else{
                 self.subStatusTextView.textColor = .yellow

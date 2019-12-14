@@ -42,7 +42,7 @@ class MqttManager{
             print("Connection error")
             let errorBanner = NotificationBanner(title: "Connection error :(", subtitle: "try different host/port", style: .danger)
             errorBanner.autoDismiss = true
-            errorBanner.duration = 2
+            errorBanner.duration = 1
             errorBanner.show()
         }
         return status
@@ -111,7 +111,7 @@ extension MqttManager : CocoaMQTTDelegate {
         self.isConnected = false
         let dissBanner = NotificationBanner(title: "Disconntected from host :(", subtitle: "host: \(host)", style: .danger)
         dissBanner.autoDismiss = true
-        dissBanner.duration = 2
+        dissBanner.duration = 1
         dissBanner.show()
     }
     
@@ -121,7 +121,7 @@ extension MqttManager : CocoaMQTTDelegate {
         self.isConnected = true
         let initBanner = NotificationBanner(title: "Connection established", subtitle: "host: \(mqtt.host)", style: .success)
         initBanner.autoDismiss = true
-        initBanner.duration = 2
+        initBanner.duration = 1
         initBanner.show()
     }
     
@@ -144,7 +144,7 @@ extension MqttManager : CocoaMQTTDelegate {
         self.isSubscribed = true
         let subBanner = NotificationBanner(title: "Subscribed to topic", subtitle: "topic: \(topic)", style: .info)
         subBanner.autoDismiss = true
-        subBanner.duration = 2
+        subBanner.duration = 1
         subBanner.show()
     }
     
@@ -153,7 +153,7 @@ extension MqttManager : CocoaMQTTDelegate {
         self.isSubscribed = false
         let unsubBanner = NotificationBanner(title: "Unsubscribed from topic", subtitle: "topic: \(topic)", style:.warning)
         unsubBanner.autoDismiss = true
-        unsubBanner.duration = 2
+        unsubBanner.duration = 1
         unsubBanner.show()
     }
     
