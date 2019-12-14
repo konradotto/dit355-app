@@ -20,12 +20,19 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var subscribeButton: UIButton!
+    @IBOutlet weak var subStatusTextView: UITextView!
     
+    @IBOutlet weak var statusTextView: UITextView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var sessionSizeTextField: UITextField!
+    @IBOutlet weak var setSizeButton: UIButton!
+    
     
     private lazy var topicsArray = ["new","travel_requests","travel_requests/long_trips","travel_requests/short_trips","external"]
     
     private lazy var mqtt = MqttManager.shared
+    private lazy var annotationManager = AnnotationManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +66,6 @@ class SettingViewController: UIViewController {
         }
         loadingIndicator.startAnimating()
     }
-    
-    
     @IBAction func subscribeButtonAction(_ sender: Any) {
         
         if !topicTextField.text!.isEmpty{
@@ -68,17 +73,28 @@ class SettingViewController: UIViewController {
             if subscribeButton.titleLabel?.text == "Subscribe" {
                 mqtt.subscribeTopic(topic: topic)
                 self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                self.subStatusTextView.textColor = .blue
+                self.subStatusTextView.text = "Subscribed"
             }
             else {
                 mqtt.unsubscribeTopic(topic: topic)
                 self.subscribeButton.setTitle("Subscribe", for: .normal)
+                self.subStatusTextView.textColor = .yellow
+                self.subStatusTextView.text = "Unsubscribed"
             }
         }
     }
     @IBAction func doneButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-   
+    @IBAction func setSizeButtonAction(_ sender: Any) {
+        if let value = Int(sessionSizeTextField.text!){
+            annotationManager.sessionSize = ( value * 2 ) - 2
+            self.view.endEditing(true)
+        }
+        
+    }
+    
     
     func initView(){
         self.holderView.layer.cornerRadius = 10
@@ -94,6 +110,9 @@ class SettingViewController: UIViewController {
         hostTextField.enablesReturnKeyAutomatically = true
         portTextField.enablesReturnKeyAutomatically = true
         topicTextField.enablesReturnKeyAutomatically = true
+        setSizeButton.layer.cornerRadius = 10
+        sessionSizeTextField.delegate = self
+        sessionSizeTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
         hostTextField.clearsOnBeginEditing = true
         portTextField.clearsOnBeginEditing = true
         topicTextField.addTarget(self, action: #selector(topicTextField_EditingChanged), for: .editingChanged)
@@ -131,6 +150,9 @@ class SettingViewController: UIViewController {
             topicTextField.isHidden = true
             pickerView.isHidden = false
         }
+        else if sessionSizeTextField.text == ""{
+            sessionSizeTextField.text = "\(50)"
+        }
         
     }
     
@@ -164,6 +186,8 @@ class SettingViewController: UIViewController {
                 if isConnected{
                     DispatchQueue.main.async {
                         self.loadingIndicator.stopAnimating()
+                        self.statusTextView.textColor = .green
+                        self.statusTextView.text = "Connected"
                         self.connectButton.setTitle("Disconnect", for: .normal)
                         self.subscribeButton.isEnabled = true
                         
@@ -173,6 +197,8 @@ class SettingViewController: UIViewController {
                 else{
                     DispatchQueue.main.async{
                         self.loadingIndicator.stopAnimating()
+                        self.statusTextView.textColor = .red
+                        self.statusTextView.text = "Disconnected"
                         self.connectButton.setTitle("Connect", for: .normal)
                         self.subscribeButton.isEnabled = false
                     }
@@ -197,18 +223,30 @@ class SettingViewController: UIViewController {
             self.portTextField.text = String(port)
             if mqtt.isConnected{
                 self.connectButton.setTitle("Disconnect", for: .normal)
+                self.statusTextView.textColor = .green
+                self.statusTextView.text = "Connected"
+            }
+            else{
+                self.statusTextView.textColor = .red
+                self.statusTextView.text = "Disconnected"
             }
         }
-        print(">> topic: ",topic)
         if !topic.isEmpty{
             self.pickerView.isHidden = true
             topicTextField.isHidden = false
             self.topicTextField.text = topic
             if mqtt.isSubscribed{
                 self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                self.subStatusTextView.textColor = .blue
+                self.subStatusTextView.text = "Subscribed"
+            }else{
+                self.subStatusTextView.textColor = .yellow
+                self.subStatusTextView.text = "Unsubscribed"
             }
             
         }
+        let value = (annotationManager.sessionSize + 2) / 2
+        sessionSizeTextField.text = String(value)
     }
     
     

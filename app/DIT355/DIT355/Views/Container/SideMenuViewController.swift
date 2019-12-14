@@ -17,6 +17,9 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var ferrySwitch: UISwitch!
     @IBOutlet weak var sessionSwitch: UISwitch!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var chartsButton: UIButton!
+    @IBOutlet weak var settingButton: UIButton!
+    
     
     private lazy var notificationCenter = NotificationCenter.default
     private lazy var annotationManager  = AnnotationManager.shared
@@ -27,7 +30,9 @@ class SideMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
+   
     
     func initTable(){
         self.tableView.isHidden = false
@@ -37,6 +42,7 @@ class SideMenuViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         notificationCenter.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(deselectTableRow(notification:)), name: Notification.Name(rawValue:"deselectRow"), object: nil)
         annotationManager.isInteractiveMode = true
     }
     func deinitTable(){
@@ -84,6 +90,14 @@ class SideMenuViewController: UIViewController {
             deinitTable()
         }
     }
+    @IBAction func chartsbuttonAction(_ sender: Any) {
+    }
+    @IBAction func settingButtonAction(_ sender: Any) {
+    }
+    
+    
+    
+    
     
     @objc func updateTableData(notification: NSNotification){
        
@@ -98,6 +112,17 @@ class SideMenuViewController: UIViewController {
         }
     }
     
+    @objc func deselectTableRow(notification: NSNotification){
+        guard let index = self.tableView.indexPathForSelectedRow else {return}
+        self.tableView.deselectRow(at: index, animated: false)
+    }
+    
+    @IBAction func chartsSwipeAction(_ sender: Any) {
+        performSegue(withIdentifier: "settings", sender: sender)
+    }
+    @IBAction func settingSwipeAction(_ sender: Any) {
+        performSegue(withIdentifier: "charts", sender: sender)
+    }
     
 }
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{

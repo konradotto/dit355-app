@@ -62,8 +62,10 @@ class MapController : NSObject {
         
     }
     
-    func dismiss(){
-        
+    func clearAnnotations(isSession: Bool){
+        if isSession{
+            NotificationCenter.default.post(name: Notification.Name("deselectRow"), object: nil)
+        }
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.annotations.removeAll()
     }
@@ -149,7 +151,7 @@ extension MapController : MKMapViewDelegate {
             return nil
         }
         else if let annotation = annotation as? Annotation {
-            
+            if model.clearButton.isHidden {model.clearButton.isHidden = false}
             let identifier = NSStringFromClass(Annotation.self)
             let view: MKMarkerAnnotationView =  MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             

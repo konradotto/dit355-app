@@ -15,7 +15,8 @@ class MapModel: UIView {
     var controller : MapController!
     var mapView: MKMapView!
     var resetButton: UIButton!
-        
+    var clearButton: UIButton!
+    var swipeRecogniser: UISwipeGestureRecognizer!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +27,7 @@ class MapModel: UIView {
         initMap()
         showCompass()
         initButtons()
+        initGestures()
     }
     
     required init?(coder: NSCoder) {
@@ -35,10 +37,10 @@ class MapModel: UIView {
     func initMap(){
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isZoomEnabled   = true
-        mapView.isPitchEnabled  = false
+        mapView.isPitchEnabled  = true
         mapView.isRotateEnabled = true
         mapView.isScrollEnabled = true
-        //mapView.overrideUserInterfaceStyle = .dark
+        mapView.overrideUserInterfaceStyle = .dark
         mapView.delegate = controller
     }
     
@@ -64,6 +66,26 @@ class MapModel: UIView {
         resetButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
         resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
         
+        clearButton = .init(type: .roundedRect)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.addTarget(self, action: #selector(clearButtonAction), for: .touchUpInside)
+        clearButton.isHidden = true
+        clearButton.setImage(UIImage(named: "clear"), for: .normal)
+        self.addSubview(clearButton)
+        clearButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
+        clearButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 150).isActive = true
+        
+    }
+    
+    func initGestures(){
+        
+        let rect = CGRect(x: self.mapView.frame.maxX - 25, y: 0.0, width: 25, height: self.mapView.frame.height)
+        let v = UIView(frame: rect)
+        self.swipeRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureAction))
+        swipeRecogniser.direction = .left
+        v.addGestureRecognizer(swipeRecogniser)
+        self.addSubview(v)
+        
     }
     
     @objc func resetButtonAction(sender: UIButton){
@@ -71,5 +93,13 @@ class MapModel: UIView {
         resetButton.isHidden = true
     }
     
+    @objc func clearButtonAction(sender: UIButton){
+        controller.clearAnnotations(isSession: true)
+        clearButton.isHidden = true
+        
+    }
     
+    @objc func swipeGestureAction(){
+        NotificationCenter.default.post(name: Notification.Name("openMenu"), object: nil)
+    }
 }

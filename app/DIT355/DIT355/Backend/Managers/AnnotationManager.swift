@@ -15,10 +15,10 @@ class AnnotationManager {
     static let shared = AnnotationManager()
     var annotations = [Annotation]()
     private lazy var sessionsCount = 0
-    private let sessionSize = 98
+    var sessionSize = 98
     //private lazy var sm = SessionManager.shared
     private lazy var mc = MapController.shared
-    var isInteractiveMode : Bool!
+    var isInteractiveMode = false
     
     private init(){}
     
@@ -53,7 +53,6 @@ class AnnotationManager {
     
     
     func checkModes(_ anns: [Annotation]){
-        if isInteractiveMode == nil {return}
         if isInteractiveMode {
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])

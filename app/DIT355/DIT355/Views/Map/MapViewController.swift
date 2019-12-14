@@ -20,8 +20,7 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        controller.initialView(animated: false)
-        
+        controller.initialView(animated: false)        
     }
     
     override func loadView() {
@@ -31,5 +30,5 @@ class MapViewController: UIViewController {
         controller.model = self.model
     }
     
-    
+  
 }

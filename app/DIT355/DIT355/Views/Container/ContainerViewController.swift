@@ -13,6 +13,7 @@ class ContainerViewController: UIViewController {
     //MARK: - ViewController Variables
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var menuView: UIView!
+    @IBOutlet var swipeRecognizer: UISwipeGestureRecognizer!
     
     lazy var mapVC: UIViewController? = {
         let map = self.storyboard?.instantiateViewController(withIdentifier: "mapView")
@@ -47,6 +48,7 @@ class ContainerViewController: UIViewController {
         let btn =  UIBarButtonItem(image: UIImage.init(named: "burgerMenu"), style: .plain, target: self, action: #selector(openOrCloseSideMenu))
         navigationItem.rightBarButtonItem = btn
         NotificationCenter.default.addObserver(self, selector: #selector(self.closeSideMenu), name: Notification.Name(rawValue:"closeMenu"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.openSideMenu), name: Notification.Name(rawValue:"openMenu"), object: nil)
         
     }
     
@@ -157,4 +159,29 @@ class ContainerViewController: UIViewController {
         
     }
     
+    @objc func openSideMenu(){
+        UIView.animate(withDuration: 0.0, animations: {
+            self.displaySideMenu()
+            let blackTransparentView = self.addBlackTransparentView()
+            
+            self.mapVC!.view.addSubview(blackTransparentView)
+            
+        }) { (_) in
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.addBlackTransparentView().alpha = self.view.bounds.width * 0.6/(self.view.bounds.width * 1.6)
+                self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.6), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
+                
+            }) { (_) in
+                self.isActive = true
+                
+            }
+        }
+        
+    }
+    
+    
+    @IBAction func swipeRecognizerAction(_ sender: Any) {
+        closeSideMenu()
+    }
 }
