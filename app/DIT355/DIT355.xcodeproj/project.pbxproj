@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9FBF9CE42379A1C2003CC839 /* MqttManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBF9CE32379A1C2003CC839 /* MqttManager.swift */; };
+		9FF8477F23BAB90700533766 /* chartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF8477E23BAB90700533766 /* chartsViewController.swift */; };
 		B72427D0144A19A74058FEE5 /* Pods_DIT355.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BA8C7BFF44DD0E01E3E006 /* Pods_DIT355.framework */; };
 		CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA099D21237431D500A7AC6B /* AppDelegate.swift */; };
 		CA099D29237431D500A7AC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA099D27237431D500A7AC6B /* Main.storyboard */; };
@@ -26,7 +27,6 @@
 		CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */; };
 		CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */; };
 		CADB4B3B239E7F2C00AA48D4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADB4B3A239E7F2C00AA48D4 /* SettingViewController.swift */; };
-		CAEC74902399587200108E60 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEC748F2399587200108E60 /* ChartsViewController.swift */; };
 		CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF9AE20237C3D880032E1D0 /* Request.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +35,7 @@
 		61BA8C7BFF44DD0E01E3E006 /* Pods_DIT355.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DIT355.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7D6A05D9520838A3452A9D /* Pods-DIT355.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DIT355.debug.xcconfig"; path = "Target Support Files/Pods-DIT355/Pods-DIT355.debug.xcconfig"; sourceTree = "<group>"; };
 		9FBF9CE32379A1C2003CC839 /* MqttManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttManager.swift; sourceTree = "<group>"; };
+		9FF8477E23BAB90700533766 /* chartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chartsViewController.swift; sourceTree = "<group>"; };
 		CA099D1E237431D500A7AC6B /* DIT355.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DIT355.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA099D21237431D500A7AC6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA099D28237431D500A7AC6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -54,7 +55,6 @@
 		CAD027CD237D65DC009EFA32 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		CAD027CF237D6771009EFA32 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		CADB4B3A239E7F2C00AA48D4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		CAEC748F2399587200108E60 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		CAF9AE20237C3D880032E1D0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,7 +192,7 @@
 		CAEC748E2399584C00108E60 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				CAEC748F2399587200108E60 /* ChartsViewController.swift */,
+				9FF8477E23BAB90700533766 /* chartsViewController.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -312,7 +312,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAEC74902399587200108E60 /* ChartsViewController.swift in Sources */,
 				CA39BCE92379AA8C004BEF17 /* SceneDelegate.swift in Sources */,
 				CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */,
 				CAD027D0237D6771009EFA32 /* SideMenuViewController.swift in Sources */,
@@ -321,6 +320,7 @@
 				CA9D6998238E80A3000ABBAA /* AnnotationManager.swift in Sources */,
 				CAF9AE22237C3D880032E1D0 /* Request.swift in Sources */,
 				CAD027C9237D5621009EFA32 /* Session.swift in Sources */,
+				9FF8477F23BAB90700533766 /* chartsViewController.swift in Sources */,
 				CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */,
 				CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,

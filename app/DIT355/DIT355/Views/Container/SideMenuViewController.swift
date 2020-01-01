@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import Charts
+
+struct cellData {
+    var isOpened = Bool()
+    var session: Session!
+    weak var barChartView: BarChartView!
+}
 
 class SideMenuViewController: UIViewController {
     
-    
+
     
     @IBOutlet weak var tramSwitch: UISwitch!
     @IBOutlet weak var busSwitch: UISwitch!
@@ -26,6 +33,8 @@ class SideMenuViewController: UIViewController {
     
     private var dataArray: [Session]!
     let cellId = "cell"
+    
+    var tableViewData = [cellData]()
     
     
     override func viewDidLoad() {
@@ -45,6 +54,8 @@ class SideMenuViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(deselectTableRow(notification:)), name: Notification.Name(rawValue:"deselectRow"), object: nil)
         annotationManager.isInteractiveMode = true
     }
+    
+    
     func deinitTable(){
         annotationManager.isInteractiveMode = false
         self.tableView.isHidden = true
@@ -54,7 +65,6 @@ class SideMenuViewController: UIViewController {
     }
     
     @IBAction func tramSwitchAction(_ sender: Any) {
-        
         if !tramSwitch.isOn{
             print("tram filter triggered")
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "tram"])
@@ -73,6 +83,7 @@ class SideMenuViewController: UIViewController {
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "none-bus"])
         }
     }
+    
     @IBAction func ferrySwitchAction(_ sender: Any) {
         if !ferrySwitch.isOn{
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "ferry"])
@@ -81,8 +92,8 @@ class SideMenuViewController: UIViewController {
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "none-ferry"])
         }
     }
+    
     @IBAction func sessionSwitchAction(_ sender: Any) {
-        
         if sessionSwitch.isOn {
             initTable()
         }
@@ -90,8 +101,10 @@ class SideMenuViewController: UIViewController {
             deinitTable()
         }
     }
+    
     @IBAction func chartsbuttonAction(_ sender: Any) {
     }
+    
     @IBAction func settingButtonAction(_ sender: Any) {
     }
     
@@ -138,6 +151,26 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
         return cell!
     }
     
+      func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+            if editingStyle == .delete {
+
+                let alert = UIAlertController(title: "Are you sure you want to delete this session?", message: "", preferredStyle: .alert)
+
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+                    let sesh = self.dataArray[indexPath.row]
+                    //self.sessions.remove(session: sesh)
+                    self.dataArray.remove(at: indexPath.row)
+
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.endUpdates()
+                }))
+                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+                self.present(alert, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let session = dataArray[indexPath.row]
@@ -145,5 +178,6 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
         notificationCenter.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
     }
     
+    }
     
 }

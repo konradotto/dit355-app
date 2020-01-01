@@ -13,14 +13,11 @@ class MapViewController: UIViewController {
     
     lazy var model = MapModel(frame: UIScreen.main.bounds)
     lazy var controller : MapController! = MapController.shared
-    
-    
-    
-    
+    let mqtt = MqttManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        controller.initialView(animated: false)        
+        controller.initialView(animated: false)
     }
     
     override func loadView() {
@@ -29,6 +26,4 @@ class MapViewController: UIViewController {
         controller.delegate = self
         controller.model = self.model
     }
-    
-  
 }

@@ -11,8 +11,8 @@ import Charts
 
 class ChartsViewController: UIViewController {
 
-    @IBOutlet weak var pieChartView: PieChartView!
-    @IBOutlet weak var barChartView: BarChartView!
+    @IBOutlet weak var pieTypeChartView: PieChartView!
+    @IBOutlet weak var piePurposeChartView: PieChartView!
     
     private lazy var mapController  = MapController.shared
     
@@ -24,57 +24,60 @@ class ChartsViewController: UIViewController {
     
     
     func initView(){
-        pieChartView.noDataText = "No data to visualize"
+        pieTypeChartView.noDataText = "No data to visualize"
         let dataArray = mapController.annotations
         guard dataArray.count > 1 else {return}
         
         let filteredAnnotations = dataArray.filter({$0.title == "Source"})
-        let tramCount =  Double(filteredAnnotations.filter({$0.type == "tram"}).count)
-        let busCount  =  Double(filteredAnnotations.filter({$0.type == "bus"}).count)
-        let ferryCount = Double(filteredAnnotations.filter({$0.type == "ferry"}).count)
-        
+        let tramCount    = Double(filteredAnnotations.filter({$0.type == "tram"}).count)
+        let busCount     = Double(filteredAnnotations.filter({$0.type == "bus"}).count)
+        let ferryCount   = Double(filteredAnnotations.filter({$0.type == "ferry"}).count)
+        let workCount    = Double(filteredAnnotations.filter({$0.subtitle == "work"}).count)
+        let schoolCount  = Double(filteredAnnotations.filter({$0.subtitle == "school"}).count)
+        let leisureCount = Double(filteredAnnotations.filter({$0.subtitle == "leisure"}).count)
+        let tourismCount = Double(filteredAnnotations.filter({$0.subtitle == "tourism"}).count)
         
         let types = ["tram", "bus", "ferry"]
+        let purposes = ["work", "school", "leisure", "tourism"]
         let typesCount = [tramCount, busCount, ferryCount]
-        setChart(dataPoints: types, values: typesCount)
+        let purposesCount = [workCount, schoolCount, leisureCount, tourismCount]
+        setChart(dataPointsType: types, valuesType: typesCount, dataPointsPurpose: purposes, valuesPurpose: purposesCount)
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        barChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBounce)
-        pieChartView.animate(xAxisDuration: 1.0, easingOption: .easeInCirc)
+        pieTypeChartView.animate(xAxisDuration: 1.0, easingOption: .easeInCirc)
+        piePurposeChartView.animate(xAxisDuration: 1.0, easingOption: .easeInCirc)
     }
 
    
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPointsType: [String], valuesType: [Double], dataPointsPurpose: [String], valuesPurpose: [Double]) {
         
-        var pieDataEntries: [PieChartDataEntry] = []
-        var barDataEntries: [BarChartDataEntry] = []
+        var pieDataEntriesType:     [PieChartDataEntry] = []
+        var pieDataEntriesPurpose:  [PieChartDataEntry] = []
         
-        for i in 0..<dataPoints.count {
-            let pieEntry = PieChartDataEntry(value: values[i], label: dataPoints[i])
-            let barEntry = BarChartDataEntry(x: Double(i), y: values[i],data: dataPoints[i].data(using: .utf8))
-            pieDataEntries.append(pieEntry)
-            barDataEntries.append(barEntry)
+        for i in 0..<dataPointsType.count {
+            let pieEntry = PieChartDataEntry(value: valuesType[i], label: dataPointsType[i])
+            pieDataEntriesType.append(pieEntry)
         }
         
-        let pieChartDataSet = PieChartDataSet(entries: pieDataEntries, label: "total count: \(mapController.annotations.count/2)")
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        pieChartView.data = pieChartData
+        for i in 0..<dataPointsPurpose.count {
+                  let pieEntry = PieChartDataEntry(value: valuesPurpose[i], label: dataPointsPurpose[i])
+                  pieDataEntriesPurpose.append(pieEntry)
+              }
         
+        let pieChartDataSetType = PieChartDataSet(entries: pieDataEntriesType, label: "total count: \(mapController.annotations.count/2)")
+        let pieChartDataSetPurpose = PieChartDataSet(entries: pieDataEntriesPurpose, label: "total count: \(mapController.annotations.count/2)")
+        let pieChartDataType = PieChartData(dataSet: pieChartDataSetType)
+        let pieChartDataPurpose = PieChartData(dataSet: pieChartDataSetPurpose)
+        pieTypeChartView.data = pieChartDataType
+        piePurposeChartView.data = pieChartDataPurpose
         
-        pieChartDataSet.colors = [#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1),#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)]
-        pieChartView.isUserInteractionEnabled = false
-        barChartView.isUserInteractionEnabled = false
-        barChartView.xAxis.labelPosition = .bottom
-        barChartView.xAxis.avoidFirstLastClippingEnabled = true
-       // barChartView.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
+        pieChartDataSetType.colors = [#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1),#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)]
+        pieChartDataSetPurpose.colors = [#colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1),#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),.yellow]
+        pieTypeChartView.isUserInteractionEnabled = false
+        piePurposeChartView.isUserInteractionEnabled = false
         
-        let barChartDataSet = BarChartDataSet(entries: barDataEntries,label: "Time interval")
-        let barChartData = BarChartData(dataSet: barChartDataSet)
-        barChartView.data = barChartData
-        barChartDataSet.setColor(#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1))
-        barChartView.chartDescription?.text = ""
         
     }
 }
