@@ -15,9 +15,15 @@ class AnnotationManager {
     //MARK: - Class Variables
     static let shared = AnnotationManager()
     var annotations = [Annotation]()
-    private lazy var sessionsCount = 0
+    var sessionsCount = 0
     var sessionSize = 98
-    var isLoggingSessions = false
+    var isLoggingSessions = false {
+        didSet {
+            if !isLoggingSessions{
+                sessionsCount = 0
+            }
+        }
+    }
     
     //MARK: - Composed Objects
     private lazy var mc = MapController.shared
@@ -54,6 +60,9 @@ class AnnotationManager {
     /// Coordinate the annotations based on the logging mode.
     func checkModes(_ anns: [Annotation]){
         if isLoggingSessions {
+            if self.annotations.count == 0 && self.sessionsCount == 0 {
+                mc.clearAnnotations(isSession: false)
+            }
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }

@@ -44,6 +44,7 @@ class MapController : NSObject {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(plotAnnotations(notification:)), name: Notification.Name(rawValue:"plotAnnottions"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(filterAnnottions(notification:)), name: Notification.Name(rawValue:"filterType"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clearAnnotations(notification:)), name: Notification.Name(rawValue:"clearAnnotations"), object: nil)
         
     }
     
@@ -55,6 +56,7 @@ class MapController : NSObject {
         }
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.annotations.removeAll()
+        model.clearButton.isHidden = true
     }
     /// Setup the default view of the map.
     func initialView(animated: Bool){
@@ -90,6 +92,19 @@ class MapController : NSObject {
         DispatchQueue.main.async {
             self.mapView.addAnnotation(ann)
         }
+    }
+    
+    func navigateTo(_ annotations: [Annotation]){
+        let coords = annotations.map { (ann) -> CLLocationCoordinate2D in
+            ann.coordinate
+        }
+        let rect = makeRect(coords)
+        let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
+        DispatchQueue.main.async {
+            self.mapView.setVisibleMapRect(rect, edgePadding: ei, animated: true)
+        }
+        
+        
     }
     
     //MARK: - Selector Methods
@@ -130,10 +145,16 @@ class MapController : NSObject {
                 DispatchQueue.main.async {
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     self.mapView.addAnnotations(self.annotations)
+                    self.mapView.showAnnotations(self.annotations, animated: true)
                 }
             }
+            
         }
         
+    }
+    
+    @objc func clearAnnotations(notification: NSNotification){
+        self.clearAnnotations(isSession: false)
     }
     
 }

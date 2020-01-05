@@ -29,26 +29,31 @@ class SideMenuViewController: UIViewController {
     //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-   
-    //MARK: - Class Functions
-    func initTable(){
-        self.tableView.isHidden = false
         dataArray = [Session]()
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+
+    }
+   
+    //MARK: - Class Functions
+    func initTable(){
+        annotationManager.isLoggingSessions = true
+        self.tableView.isHidden = false
         notificationCenter.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
         notificationCenter.addObserver(self, selector: #selector(deselectTableRow(notification:)), name: Notification.Name(rawValue:"deselectRow"), object: nil)
-        annotationManager.isLoggingSessions = true
+        notificationCenter.post(name: Notification.Name(rawValue:"clearAnnotations"), object: nil)
     }
     func deinitTable(){
         annotationManager.isLoggingSessions = false
         self.tableView.isHidden = true
-        dataArray = nil
+        dataArray.removeAll()
+        self.tableView.reloadData()
         notificationCenter.removeObserver(self, name: Notification.Name(rawValue:"reloadData"), object: nil)
+        notificationCenter.removeObserver(self, name: Notification.Name(rawValue:"deselectRow"), object: nil)
+        notificationCenter.post(name: Notification.Name(rawValue:"clearAnnotations"), object: nil)
         
     }
     
