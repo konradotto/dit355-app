@@ -54,7 +54,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4354.3999999999996" y="124.8768472906404"/>
+            <point key="canvasLocation" x="4490" y="125"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="Sl9-8b-ZR7">
@@ -71,7 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dnx-wg-WQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5452" y="125"/>
+            <point key="canvasLocation" x="5292" y="125"/>
         </scene>
         <!--Charts View Controller-->
         <scene sceneID="y7v-Eq-TYu">
@@ -112,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D1d-rn-qH7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7684" y="124.8768472906404"/>
+            <point key="canvasLocation" x="6969" y="125"/>
         </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="XRA-LS-rXb">
@@ -263,12 +263,12 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6519.1999999999998" y="124.8768472906404"/>
+            <point key="canvasLocation" x="6134" y="125"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="sfx-9Y-ywk">
             <objects>
-                <viewController id="auU-YK-aVg" customClass="SettingViewController" customModule="DIT355" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="auU-YK-aVg" customClass="SettingViewController" customModule="DIT355" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UZZ-Ug-ucr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -391,7 +391,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="color" cocoaTouchSystemColor="lightTextColor"/>
                                             </activityIndicatorView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e5O-cS-fhe" userLabel="status Text View">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="e5O-cS-fhe" userLabel="status Text View">
                                                 <rect key="frame" x="48" y="109" width="131" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration">
@@ -401,7 +401,7 @@
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2c8-3t-QZE" userLabel="Subscribe Text View">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2c8-3t-QZE" userLabel="Subscribe Text View">
                                                 <rect key="frame" x="48" y="230" width="131" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -478,7 +478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbO-rp-AeE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6517.6000000000004" y="954.67980295566508"/>
+            <point key="canvasLocation" x="6134" y="954"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DLV-gm-tDt">
@@ -496,7 +496,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lGj-9N-tMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3412" y="124.8768472906404"/>
+            <point key="canvasLocation" x="3676" y="125"/>
         </scene>
     </scenes>
     <resources>

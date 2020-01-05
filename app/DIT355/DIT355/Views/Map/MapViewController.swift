@@ -10,19 +10,15 @@ import UIKit
 
 class MapViewController: UIViewController {
     
-    
+    //MARK: - Class Variables
     lazy var model = MapModel(frame: UIScreen.main.bounds)
     lazy var controller : MapController! = MapController.shared
     
-    
-    
-    
-
+    //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         controller.initialView(animated: false)        
     }
-    
     override func loadView() {
         self.view = model
         model.delegate = self

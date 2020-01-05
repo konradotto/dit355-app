@@ -11,18 +11,26 @@ import Charts
 
 class ChartsViewController: UIViewController {
 
+    //MARK: - UI Elements
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var barChartView: BarChartView!
     
+    //MARK: - Class Variables
     private lazy var mapController  = MapController.shared
     
+    //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        barChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBounce)
+        pieChartView.animate(xAxisDuration: 1.0, easingOption: .easeInCirc)
+    }
+
     
-    
+    //MARK: - Class Functions
     func initView(){
         pieChartView.noDataText = "No data to visualize"
         let dataArray = mapController.annotations
@@ -39,13 +47,6 @@ class ChartsViewController: UIViewController {
         setChart(dataPoints: types, values: typesCount)
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        barChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBounce)
-        pieChartView.animate(xAxisDuration: 1.0, easingOption: .easeInCirc)
-    }
-
-   
-    
     func setChart(dataPoints: [String], values: [Double]) {
         
         var pieDataEntries: [PieChartDataEntry] = []

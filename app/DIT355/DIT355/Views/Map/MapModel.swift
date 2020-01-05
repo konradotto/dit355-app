@@ -11,13 +11,18 @@ import MapKit
 
 class MapModel: UIView {
     
-    var delegate : UIViewController!
-    var controller : MapController!
+    //MARK: - UI Elements
     var mapView: MKMapView!
     var resetButton: UIButton!
     var clearButton: UIButton!
-    var swipeRecogniser: UISwipeGestureRecognizer!
+    var leftSwipeRecogniser: UISwipeGestureRecognizer!
+    var upSwipeRecogniser: UISwipeGestureRecognizer!
     
+    //MARK: - Composed objects
+    var delegate : UIViewController!
+    var controller : MapController!
+    
+    //MARK: - Constructor
     override init(frame: CGRect) {
         super.init(frame: frame)
         mapView = MKMapView(frame: frame)
@@ -29,11 +34,12 @@ class MapModel: UIView {
         initButtons()
         initGestures()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Class Functions
+    /// Setup the mapView.
     func initMap(){
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isZoomEnabled   = true
@@ -43,7 +49,7 @@ class MapModel: UIView {
         mapView.overrideUserInterfaceStyle = .dark
         mapView.delegate = controller
     }
-    
+    /// Setup and display the compass on the tope left of the mapView.
     func showCompass(){
             mapView.showsCompass = false
             let compassButton = MKCompassButton(mapView:mapView)
@@ -54,7 +60,7 @@ class MapModel: UIView {
             compassButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
             
         }
-    
+    /// Setup and configure the mapView buttons.
     func initButtons(){
         
         resetButton = .init(type: .roundedRect)
@@ -76,30 +82,29 @@ class MapModel: UIView {
         clearButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 150).isActive = true
         
     }
-    
+    /// Setup and configure the swipe gesture.
     func initGestures(){
         
         let rect = CGRect(x: self.mapView.frame.maxX - 25, y: 0.0, width: 25, height: self.mapView.frame.height)
         let v = UIView(frame: rect)
-        self.swipeRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureAction))
-        swipeRecogniser.direction = .left
-        v.addGestureRecognizer(swipeRecogniser)
+        self.leftSwipeRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeGestureAction))
+        leftSwipeRecogniser.direction = .left
+        v.addGestureRecognizer(leftSwipeRecogniser)
         self.addSubview(v)
-        
     }
     
+    //MARK: - Selector Methods
     @objc func resetButtonAction(sender: UIButton){
         controller.initialView(animated: true)
         resetButton.isHidden = true
     }
-    
     @objc func clearButtonAction(sender: UIButton){
         controller.clearAnnotations(isSession: true)
         clearButton.isHidden = true
         
     }
-    
-    @objc func swipeGestureAction(){
+    @objc func leftSwipeGestureAction(){
         NotificationCenter.default.post(name: Notification.Name("openMenu"), object: nil)
     }
+  
 }

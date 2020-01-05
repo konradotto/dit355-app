@@ -10,6 +10,7 @@ import UIKit
 
 class SettingViewController: UIViewController {
     
+    //MARK: - UI Elements
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var topicTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
@@ -21,35 +22,109 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var subscribeButton: UIButton!
     @IBOutlet weak var subStatusTextView: UITextView!
-    
     @IBOutlet weak var statusTextView: UITextView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var sessionSizeTextField: UITextField!
     @IBOutlet weak var setSizeButton: UIButton!
     
-    
+    //MARK: - Class Variables
     private lazy var topicsArray = ["new","travel_requests","travel_requests/long_trips","travel_requests/short_trips","external"]
     
+    //MARK: - Managers
     private lazy var mqtt = MqttManager.shared
     private lazy var annotationManager = AnnotationManager.shared
     
+    //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         checkFields()
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: self.view.window)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: self.view.window)
         
     }
     
+    //MARK: - Class Functions
+    /// Setup the initial view of the settings view.
+    func initView(){
+        self.holderView.layer.cornerRadius = 10
+        self.doneButton.layer.cornerRadius = 10
+        topicTextField.delegate = self
+        hostTextField.delegate = self
+        portTextField.delegate = self
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        hostTextField.returnKeyType = .done
+        portTextField.returnKeyType = .done
+        topicTextField.returnKeyType = .done
+        hostTextField.enablesReturnKeyAutomatically = true
+        portTextField.enablesReturnKeyAutomatically = true
+        topicTextField.enablesReturnKeyAutomatically = true
+        setSizeButton.layer.cornerRadius = 10
+        sessionSizeTextField.delegate = self
+        sessionSizeTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
+        hostTextField.clearsOnBeginEditing = true
+        portTextField.clearsOnBeginEditing = true
+        topicTextField.addTarget(self, action: #selector(topicTextField_EditingChanged), for: .editingChanged)
+        topicTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
+        hostTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
+        portTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
+        topicTextField.isHidden = true
+        portTextField.keyboardType = .numberPad
+        scrollView.keyboardDismissMode = .onDrag
+        pickerView.layer.cornerRadius = 5
+        connectButton.layer.cornerRadius = 10
+        subscribeButton.layer.cornerRadius = 10
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtons(notification:)), name: Notification.Name(rawValue:"mqtt_status"), object: nil)
+    }
+    /// Autofill textfields if values were provided
+    func checkFields(){
+        if !mqtt.isConnected{
+            subscribeButton.isEnabled = false
+        }
+        let host    = mqtt.host
+        let port    = mqtt.port
+        let topic   = mqtt.topic
+        if !host.isEmpty{
+            self.hostTextField.text = host
+            self.portTextField.text = String(port)
+            if mqtt.isConnected{
+                self.connectButton.setTitle("Disconnect", for: .normal)
+                self.statusTextView.textColor = .green
+                self.statusTextView.text = "Connected"
+            }
+            else{
+                self.statusTextView.textColor = .red
+                self.statusTextView.text = "Disconnected"
+            }
+        }
+        if !topic.isEmpty{
+            self.pickerView.isHidden = true
+            topicTextField.isHidden = false
+            self.topicTextField.text = topic
+            if mqtt.isSubscribed{
+                self.subscribeButton.setTitle("Unsubscribe", for: .normal)
+                self.subStatusTextView.textColor = .systemBlue
+                self.subStatusTextView.text = "Subscribed"
+            }else{
+                self.subStatusTextView.textColor = .yellow
+                self.subStatusTextView.text = "Unsubscribed"
+            }
+            
+        }
+        let value = (annotationManager.sessionSize + 2) / 2
+        sessionSizeTextField.text = String(value)
+    }
+    
+    //MARK: - UI Elements Actions
     @IBAction func connectButtonAction(_ sender: Any) {
         if connectButton.titleLabel?.text == "Connect"{
             if !hostTextField.text!.isEmpty{
@@ -95,41 +170,7 @@ class SettingViewController: UIViewController {
         
     }
     
-    
-    func initView(){
-        self.holderView.layer.cornerRadius = 10
-        self.doneButton.layer.cornerRadius = 10
-        topicTextField.delegate = self
-        hostTextField.delegate = self
-        portTextField.delegate = self
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        hostTextField.returnKeyType = .done
-        portTextField.returnKeyType = .done
-        topicTextField.returnKeyType = .done
-        hostTextField.enablesReturnKeyAutomatically = true
-        portTextField.enablesReturnKeyAutomatically = true
-        topicTextField.enablesReturnKeyAutomatically = true
-        setSizeButton.layer.cornerRadius = 10
-        sessionSizeTextField.delegate = self
-        sessionSizeTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
-        hostTextField.clearsOnBeginEditing = true
-        portTextField.clearsOnBeginEditing = true
-        topicTextField.addTarget(self, action: #selector(topicTextField_EditingChanged), for: .editingChanged)
-        topicTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
-        hostTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
-        portTextField.addTarget(self, action: #selector(emptyTextField_EditingEnded), for: .editingDidEnd)
-        topicTextField.isHidden = true
-        portTextField.keyboardType = .numberPad
-        scrollView.keyboardDismissMode = .onDrag
-        pickerView.layer.cornerRadius = 5
-        connectButton.layer.cornerRadius = 10
-        subscribeButton.layer.cornerRadius = 10
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateButtons(notification:)), name: Notification.Name(rawValue:"mqtt_status"), object: nil)
-    }
+    //MARK: - Selector Methods
     @objc func topicTextField_EditingChanged(){
         print("row: ",pickerView.selectedRow(inComponent: 0))
         if topicTextField.text == "" {
@@ -155,8 +196,6 @@ class SettingViewController: UIViewController {
         }
         
     }
-    
-    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if bottomConstraint.constant == 0 {
@@ -168,7 +207,6 @@ class SettingViewController: UIViewController {
             }
         }
     }
-    
     @objc func keyboardWillHide(notification: NSNotification) {
         
         if bottomConstraint.constant != 0 {
@@ -179,7 +217,6 @@ class SettingViewController: UIViewController {
             
         }
     }
-    
     @objc func updateButtons(notification: NSNotification){
         if let userInfo = notification.userInfo {
             if let isConnected = userInfo["isConnected"] as? Bool {
@@ -211,46 +248,9 @@ class SettingViewController: UIViewController {
         
     }
     
-    func checkFields(){
-        if !mqtt.isConnected{
-            subscribeButton.isEnabled = false
-        }
-        let host    = mqtt.host
-        let port    = mqtt.port
-        let topic   = mqtt.topic
-        if !host.isEmpty{
-            self.hostTextField.text = host
-            self.portTextField.text = String(port)
-            if mqtt.isConnected{
-                self.connectButton.setTitle("Disconnect", for: .normal)
-                self.statusTextView.textColor = .green
-                self.statusTextView.text = "Connected"
-            }
-            else{
-                self.statusTextView.textColor = .red
-                self.statusTextView.text = "Disconnected"
-            }
-        }
-        if !topic.isEmpty{
-            self.pickerView.isHidden = true
-            topicTextField.isHidden = false
-            self.topicTextField.text = topic
-            if mqtt.isSubscribed{
-                self.subscribeButton.setTitle("Unsubscribe", for: .normal)
-                self.subStatusTextView.textColor = .systemBlue
-                self.subStatusTextView.text = "Subscribed"
-            }else{
-                self.subStatusTextView.textColor = .yellow
-                self.subStatusTextView.text = "Unsubscribed"
-            }
-            
-        }
-        let value = (annotationManager.sessionSize + 2) / 2
-        sessionSizeTextField.text = String(value)
-    }
-    
     
 }
+//MARK: - Class Extensions
 extension SettingViewController: UITextFieldDelegate {
     
     override var canBecomeFirstResponder: Bool {

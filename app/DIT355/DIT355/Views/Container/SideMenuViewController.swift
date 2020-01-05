@@ -11,7 +11,7 @@ import UIKit
 class SideMenuViewController: UIViewController {
     
     
-    
+    //MARK: - UI Elements
     @IBOutlet weak var tramSwitch: UISwitch!
     @IBOutlet weak var busSwitch: UISwitch!
     @IBOutlet weak var ferrySwitch: UISwitch!
@@ -20,20 +20,19 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var chartsButton: UIButton!
     @IBOutlet weak var settingButton: UIButton!
     
-    
+    //MARK: - Class Variables
     private lazy var notificationCenter = NotificationCenter.default
     private lazy var annotationManager  = AnnotationManager.shared
-    
     private var dataArray: [Session]!
     let cellId = "cell"
     
-    
+    //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
    
-    
+    //MARK: - Class Functions
     func initTable(){
         self.tableView.isHidden = false
         dataArray = [Session]()
@@ -43,16 +42,17 @@ class SideMenuViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         notificationCenter.addObserver(self, selector: #selector(updateTableData(notification:)), name: Notification.Name(rawValue:"reloadData"), object: nil)
         notificationCenter.addObserver(self, selector: #selector(deselectTableRow(notification:)), name: Notification.Name(rawValue:"deselectRow"), object: nil)
-        annotationManager.isInteractiveMode = true
+        annotationManager.isLoggingSessions = true
     }
     func deinitTable(){
-        annotationManager.isInteractiveMode = false
+        annotationManager.isLoggingSessions = false
         self.tableView.isHidden = true
         dataArray = nil
         notificationCenter.removeObserver(self, name: Notification.Name(rawValue:"reloadData"), object: nil)
         
     }
     
+    //MARK: - UI Elements Actions
     @IBAction func tramSwitchAction(_ sender: Any) {
         
         if !tramSwitch.isOn{
@@ -64,7 +64,6 @@ class SideMenuViewController: UIViewController {
         }
         
     }
-    
     @IBAction func busSwitchAction(_ sender: Any) {
         if !busSwitch.isOn{
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "bus"])
@@ -94,11 +93,14 @@ class SideMenuViewController: UIViewController {
     }
     @IBAction func settingButtonAction(_ sender: Any) {
     }
+    @IBAction func chartsSwipeAction(_ sender: Any) {
+        performSegue(withIdentifier: "settings", sender: sender)
+    }
+    @IBAction func settingSwipeAction(_ sender: Any) {
+        performSegue(withIdentifier: "charts", sender: sender)
+    }
     
-    
-    
-    
-    
+    //MARK: - Selector Methods
     @objc func updateTableData(notification: NSNotification){
        
         if let userInfo = notification.userInfo {
@@ -111,25 +113,17 @@ class SideMenuViewController: UIViewController {
             }
         }
     }
-    
     @objc func deselectTableRow(notification: NSNotification){
         guard let index = self.tableView.indexPathForSelectedRow else {return}
         self.tableView.deselectRow(at: index, animated: false)
     }
     
-    @IBAction func chartsSwipeAction(_ sender: Any) {
-        performSegue(withIdentifier: "settings", sender: sender)
-    }
-    @IBAction func settingSwipeAction(_ sender: Any) {
-        performSegue(withIdentifier: "charts", sender: sender)
-    }
-    
 }
+//MARK: - Class Extensions
 extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let session = dataArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SubtitleTableViewCell
@@ -137,13 +131,10 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
         cell?.detailTextLabel?.text = "\(session.annotations.count/2) requests"
         return cell!
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let session = dataArray[indexPath.row]
         notificationCenter.post(name: Notification.Name(rawValue:"closeMenu"), object: nil)
         notificationCenter.post(name: Notification.Name(rawValue:"plotAnnottions"), object: nil, userInfo: ["session" : session])
     }
-    
-    
 }

@@ -12,23 +12,26 @@ import CoreLocation
 
 class AnnotationManager {
     
+    //MARK: - Class Variables
     static let shared = AnnotationManager()
     var annotations = [Annotation]()
     private lazy var sessionsCount = 0
     var sessionSize = 98
-    //private lazy var sm = SessionManager.shared
-    private lazy var mc = MapController.shared
-    var isInteractiveMode = false
+    var isLoggingSessions = false
     
+    //MARK: - Composed Objects
+    private lazy var mc = MapController.shared
+    
+    //MARK: - Constructor
     private init(){}
     
+    //MARK: - Class Functions
+    /// Convert a json string to a Request struct.
     func toStruct(_ str: String){
-        
         let jsonData  = JSON(parseJSON: str)
         self.toAnnotations(Request(obj: jsonData))
     }
-    
-    
+    /// Convert a Request struct to two annotations.
     func toAnnotations(_ rm : Request){
        
         //need to convert the timeinterval tho
@@ -48,23 +51,18 @@ class AnnotationManager {
         
         checkModes(anns)
     }
- 
-  
-    
-    
+    /// Coordinate the annotations based on the logging mode.
     func checkModes(_ anns: [Annotation]){
-        if isInteractiveMode {
+        if isLoggingSessions {
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }
             if self.annotations.count > self.sessionSize {
                 let title = "Session: \(self.sessionsCount + 1)"
                 let s = Session(title: title, date: Date(), anns: self.annotations)
-                //sm.sessions.append(s)
                 self.annotations.removeAll()
                 self.sessionsCount += 1
                 NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil, userInfo: ["session" : s])
-                //print("session init")
             }
         } else {
             for ann in anns {

@@ -11,19 +11,19 @@ import Foundation
 
 class Session: NSObject {
     
+    //MARK: - Class Variables
     var id : String
     var title : String
     var date : Date
     var annotations: [Annotation]
     
-    
+    //MARK: - Constructors
     override public init() {
         self.id = UUID().uuidString
         self.title = String()
         self.date = Date()
         self.annotations = [Annotation]()
     }
-    
     public init(title: String,date: Date, anns: [Annotation]) {
         self.id = UUID().uuidString
         self.title = title

@@ -10,11 +10,12 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    //MARK: - ViewController Variables
+    //MARK: - UI Elements
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet var swipeRecognizer: UISwipeGestureRecognizer!
     
+    //MARK: - Composed objects
     lazy var mapVC: UIViewController? = {
         let map = self.storyboard?.instantiateViewController(withIdentifier: "mapView")
         return map
@@ -27,7 +28,8 @@ class ContainerViewController: UIViewController {
     //MARK: - Class Variables
     let blackTransparentViewTag = 666
     var isActive = false
-    
+
+    //MARK: - Managers
     var mqtt: MqttManager!
     var annotationManager: AnnotationManager!
     
@@ -51,7 +53,6 @@ class ContainerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.openSideMenu), name: Notification.Name(rawValue:"openMenu"), object: nil)
         
     }
-    
     private func displayMap(){
         // To display MapViewController in mapView
         if let vc = mapVC {
@@ -60,7 +61,6 @@ class ContainerViewController: UIViewController {
             self.mapView.addSubview(vc.view)
         }
     }
-    
     private func displaySideMenu(){
         // To display SideMenuViewController in menuView
         if !self.children.contains(menuVC!){
@@ -94,7 +94,6 @@ class ContainerViewController: UIViewController {
         
         
     }
-    
     private func addShadowToView(){
         //Gives Illusion that main view is above the side menu
         self.mapView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).cgColor
@@ -143,7 +142,6 @@ class ContainerViewController: UIViewController {
         }
         
     }
-    
     @objc func closeSideMenu(){
         //To close Side Menu
         let blackTransparentView = self.view.viewWithTag(self.blackTransparentViewTag)
@@ -158,7 +156,6 @@ class ContainerViewController: UIViewController {
         }
         
     }
-    
     @objc func openSideMenu(){
         UIView.animate(withDuration: 0.0, animations: {
             self.displaySideMenu()
@@ -179,9 +176,8 @@ class ContainerViewController: UIViewController {
         }
         
     }
-    
-    
     @IBAction func swipeRecognizerAction(_ sender: Any) {
         closeSideMenu()
     }
+   
 }
