@@ -32,6 +32,7 @@ class MapController : NSObject {
         }
     }
     var addressString = String()
+    var isStopsPlotted = false
     
     //MARK: - Managers & Composed objects
     var model: MapModel!
@@ -86,13 +87,15 @@ class MapController : NSObject {
         }
     }
     /// Add a passed annotation to the map on the main thread.
-    func addAnnotations(_ ann: Annotation){
-        self.annotations.append(ann)
+    func addAnnotations(_ ann: Annotation, isRequest: Bool){
+        if isRequest{
+            self.annotations.append(ann)
+        }
         DispatchQueue.main.async {
             self.mapView.addAnnotation(ann)
         }
     }
-    
+    /// Navigate the visible map rectagle to the passed annotations
     func navigateTo(_ annotations: [Annotation]){
         let coords = annotations.map { (ann) -> CLLocationCoordinate2D in
             ann.coordinate
@@ -102,8 +105,24 @@ class MapController : NSObject {
         DispatchQueue.main.async {
             self.mapView.setVisibleMapRect(rect, edgePadding: ei, animated: true)
         }
-        
-        
+    }
+    /// Handle plotting the stops onto the map
+    func plotStops(){
+        if isStopsPlotted {
+            let anns = self.mapView.annotations.filter { (ann) -> Bool in
+                if let anno = ann as? Annotation{
+                    return anno.id == "555"
+                }
+                return false
+            }
+            DispatchQueue.main.async {
+                self.mapView.removeAnnotations(anns)
+            }
+        }
+        else {
+            AnnotationManager.shared.readStopsCoordinates()
+        }
+        isStopsPlotted = !isStopsPlotted
     }
     
     //MARK: - Selector Methods
@@ -170,7 +189,9 @@ extension MapController : MKMapViewDelegate {
             return nil
         }
         else if let annotation = annotation as? Annotation {
-            if model.clearButton.isHidden {model.clearButton.isHidden = false}
+            if annotation.id != "555"{
+                if model.clearButton.isHidden {model.clearButton.isHidden = false}
+            }
             let identifier = NSStringFromClass(Annotation.self)
             let view: MKMarkerAnnotationView =  MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
@@ -184,8 +205,11 @@ extension MapController : MKMapViewDelegate {
             
             if annotation.title == "Destination" {
                 view.markerTintColor = #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1)
-            } else {
-                view.markerTintColor = #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+            } else if annotation.title == "Source"  {
+                view.markerTintColor = #colorLiteral(red: 0.0009934299198, green: 0.4331022415, blue: 0.126284418, alpha: 1)
+            }
+            else {
+                view.markerTintColor = #colorLiteral(red: 0.03201064659, green: 0.2225413255, blue: 0.8887412754, alpha: 1)
             }
             return view
             
