@@ -34,7 +34,6 @@ class MapController : NSObject {
     var addressString = String()
     
     //MARK: - Managers & Composed objects
-    lazy var sm = SessionManager.shared
     var model: MapModel!
     var delegate: UIViewController!
     
