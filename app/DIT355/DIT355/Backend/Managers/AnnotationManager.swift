@@ -99,9 +99,9 @@ class AnnotationManager {
     /// Convert a CLLocationCoordinate2D array into Annotations and trigger the MapController to plot them on the map.
     func stopsAnnotations(_ coords:[CLLocationCoordinate2D]){
         for coord in coords {
-            let ann = Annotation(title: "Stop",
+            let ann = Annotation(title: " ",
                                  coordinate: coord,
-                                 purpose: "undefined",
+                                 purpose: "bus stop",
                                  type: "stop",
                                  depTime: Double(),
                                  id: "555")
