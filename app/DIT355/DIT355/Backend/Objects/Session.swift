@@ -1,5 +1,5 @@
 //
-//  RequestSession.swift
+//  Session.swift
 //  DIT355
 //
 //  Created by Jean paul Massoud on 2019-11-14.

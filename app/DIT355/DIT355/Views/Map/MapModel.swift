@@ -15,6 +15,7 @@ class MapModel: UIView {
     var mapView: MKMapView!
     var resetButton: UIButton!
     var clearButton: UIButton!
+    var stopsButton: UIButton!
     var leftSwipeRecogniser: UISwipeGestureRecognizer!
     var upSwipeRecogniser: UISwipeGestureRecognizer!
     
@@ -70,7 +71,7 @@ class MapModel: UIView {
         resetButton.setImage(UIImage(named: "arrow"), for: .normal)
         self.addSubview(resetButton)
         resetButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
-        resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
+        resetButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 150).isActive = true
         
         clearButton = .init(type: .roundedRect)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +80,15 @@ class MapModel: UIView {
         clearButton.setImage(UIImage(named: "clear"), for: .normal)
         self.addSubview(clearButton)
         clearButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
-        clearButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 150).isActive = true
+        clearButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 200).isActive = true
+        
+        stopsButton = .init(type: .roundedRect)
+        stopsButton.translatesAutoresizingMaskIntoConstraints = false
+        stopsButton.addTarget(self, action: #selector(stopsButtonAction), for: .touchUpInside)
+        stopsButton.setImage(UIImage(named: "plotStops"), for: .normal)
+        self.addSubview(stopsButton)
+        stopsButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -15).isActive = true
+        stopsButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 100).isActive = true
         
     }
     /// Setup and configure the swipe gesture.
@@ -103,6 +112,10 @@ class MapModel: UIView {
         clearButton.isHidden = true
         
     }
+    @objc func stopsButtonAction(sender: UIButton){
+        controller.plotStops()
+    }
+    
     @objc func leftSwipeGestureAction(){
         NotificationCenter.default.post(name: Notification.Name("openMenu"), object: nil)
     }

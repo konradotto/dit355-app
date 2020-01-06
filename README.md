@@ -4,7 +4,7 @@
 The visualiser of group 9 is an iOS client with the responsibility of visualising public transport requests in the greater Gothenburg area.
 
 ## Technologies
-The app is written for iOS 13 in Swift 5 using Xcode 11 where Cocoapods is the main package manager.
+The app is developed for iOS 13, written in Swift 5 using Xcode 11 where Cocoapods is the main package manager.
 
 ### Cocoapods packages: 
 * CocoaMQTT: 1.3
