@@ -1,5 +1,5 @@
 //
-//  ConversionManager.swift
+//  AnnotationManager.swift
 //  DIT355
 //
 //  Created by Jean paul Massoud on 2019-11-27.
@@ -39,21 +39,21 @@ class AnnotationManager {
     }
     /// Convert a Request struct to two annotations.
     func toAnnotations(_ rm : Request){
-       
+        
         //need to convert the timeinterval tho
         var anns = [Annotation]()
         anns.append(Annotation(title: "Source",
-                                      coordinate: CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong),
-                                      purpose: rm.purpose,
-                                      type: rm.type,
-                                      depTime: rm.departureTime,
-                                      id: rm.id))
+                               coordinate: CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong),
+                               purpose: rm.purpose,
+                               type: rm.type,
+                               depTime: rm.departureTime,
+                               id: rm.id))
         anns.append(Annotation(title: "Destination",
-                                      coordinate: CLLocationCoordinate2D(latitude: rm.destinationLat, longitude: rm.destinationLong),
-                                      purpose: rm.purpose,
-                                      type: rm.type,
-                                      depTime: rm.departureTime,
-                                      id: rm.id))
+                               coordinate: CLLocationCoordinate2D(latitude: rm.destinationLat, longitude: rm.destinationLong),
+                               purpose: rm.purpose,
+                               type: rm.type,
+                               depTime: rm.departureTime,
+                               id: rm.id))
         
         checkModes(anns)
     }
@@ -75,10 +75,38 @@ class AnnotationManager {
             }
         } else {
             for ann in anns {
-                mc.addAnnotations(ann)
+                mc.addAnnotations(ann, isRequest: true)
             }
         }
-       
+        
+    }
+    /// Read stops coordinates from the coordinates.txt file, convert them into doubles tuple array, then into CLLocationCoordinate2D array and finally trigger the stopsAnnotations() function.
+    func readStopsCoordinates(){
+        let path = Bundle.main.path(forResource: "coordinates", ofType: "txt")
+        let all = try? String(contentsOfFile: path!, encoding: String.Encoding.utf8)
+        let lines = all?.components(separatedBy: "\n")
+        var doublesTuples = [(Double,Double)]()
+        (0..<lines!.count-1).forEach { (i) in
+            let lineArr = lines![i].components(separatedBy: " ")
+            doublesTuples.append((Double(lineArr.first!)!,Double(lineArr.last!)!))
+        }
+        var coordinates = [CLLocationCoordinate2D]()
+        for tup in doublesTuples {
+            coordinates.append(CLLocationCoordinate2D(latitude: tup.0, longitude: tup.1))
+        }
+        stopsAnnotations(coordinates)
+    }
+    /// Convert a CLLocationCoordinate2D array into Annotations and trigger the MapController to plot them on the map.
+    func stopsAnnotations(_ coords:[CLLocationCoordinate2D]){
+        for coord in coords {
+            let ann = Annotation(title: " ",
+                                 coordinate: coord,
+                                 purpose: "bus stop",
+                                 type: "stop",
+                                 depTime: Double(),
+                                 id: "555")
+            mc.addAnnotations(ann, isRequest: false)
+        }
     }
     
 }

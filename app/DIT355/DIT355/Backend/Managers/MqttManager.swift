@@ -1,5 +1,5 @@
 //
-//  BrokerCon.swift
+//  MqttManager.swift
 //  DIT355
 //
 //  Created by Jean paul Massoud on 2019-11-27.
