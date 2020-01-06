@@ -11,6 +11,7 @@ import MapKit
 
 class Annotation: NSObject, MKAnnotation {
     
+    //MARK: - Class Variables
     var title           : String?
     var coordinate      : CLLocationCoordinate2D
     var type            : String
@@ -18,6 +19,7 @@ class Annotation: NSObject, MKAnnotation {
     var id              : String
     var subtitle        : String?
     
+    //MARK: - Constructor
     init(title: String, coordinate: CLLocationCoordinate2D,purpose: String,type: String, depTime: TimeInterval?, id: String) {
         self.title          = title
         self.coordinate     = coordinate

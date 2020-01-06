@@ -12,21 +12,32 @@ import CoreLocation
 
 class AnnotationManager {
     
+    //MARK: - Class Variables
     static let shared = AnnotationManager()
     var annotations = [Annotation]()
-    private lazy var sm = SessionManager.shared
-    private lazy var mc = MapController.shared
-    var isInteractiveMode : Bool!
+    var sessionsCount = 0
+    var sessionSize = 98
+    var isLoggingSessions = false {
+        didSet {
+            if !isLoggingSessions{
+                sessionsCount = 0
+            }
+        }
+    }
     
+    //MARK: - Composed Objects
+    private lazy var mc = MapController.shared
+    
+    //MARK: - Constructor
     private init(){}
     
+    //MARK: - Class Functions
+    /// Convert a json string to a Request struct.
     func toStruct(_ str: String){
-        
         let jsonData  = JSON(parseJSON: str)
         self.toAnnotations(Request(obj: jsonData))
     }
-    
-    
+    /// Convert a Request struct to two annotations.
     func toAnnotations(_ rm : Request){
        
         //need to convert the timeinterval tho
@@ -46,57 +57,28 @@ class AnnotationManager {
         
         checkModes(anns)
     }
- 
-  
-    
-    
+    /// Coordinate the annotations based on the logging mode.
     func checkModes(_ anns: [Annotation]){
-        
-        if isInteractiveMode {
+        if isLoggingSessions {
+            if self.annotations.count == 0 && self.sessionsCount == 0 {
+                mc.clearAnnotations(isSession: false)
+            }
             (0..<anns.count).forEach { (i) in
                 self.annotations.append(anns[i])
             }
-            if self.annotations.count > 18 {
-                let title = "Session: \(sm.sessions.count + 1)"
-                let date = Date()
-                var annos = [Annotation]()
-                (0 ..< self.annotations.count).forEach { (i) in
-                    annos.append(annotations[i])
-                }
-                let s = Session(title: title, date: date, anns: annos)
-                sm.sessions.append(s)
+            if self.annotations.count > self.sessionSize {
+                let title = "Session: \(self.sessionsCount + 1)"
+                let s = Session(title: title, date: Date(), anns: self.annotations)
                 self.annotations.removeAll()
+                self.sessionsCount += 1
                 NotificationCenter.default.post(name: Notification.Name(rawValue:"reloadData"), object: nil, userInfo: ["session" : s])
-                //print("session init")
             }
-        } else { // prolly async
+        } else {
             for ann in anns {
                 mc.addAnnotations(ann)
             }
         }
        
     }
-    
-    
-//    func dummyRequests(){
-//
-//        print("dummyRequests started")
-//        let minLat = 57.562184, minLong = 11.7018663, maxLat = 57.8580397, maxLong = 12.2068462
-//
-//        (0..<51).forEach { (i) in
-//            let originRandomLat = Double.random(in: minLat...maxLat)
-//            let originRandomLong = Double.random(in: minLong...maxLong)
-//            let targetRandomLat = Double.random(in: minLat...maxLat)
-//            let targetRandomLong = Double.random(in: minLong...maxLong)
-//            let type = ["bus","tram","ferry"].randomElement()
-//            let req = Request(deviceId: String("deviceId"), requestId: String("requestId"), sourceLat: originRandomLat, sourceLong: originRandomLong, destinationLat: targetRandomLat, destinationLong: targetRandomLong, departureTime: 2000.005, purpose: "purpose", type: type!)
-//            toAnnotations(req)
-//
-//        }
-//
-//
-//
-//    }
-   
     
 }

@@ -10,10 +10,12 @@ import UIKit
 
 class ContainerViewController: UIViewController {
     
-    //MARK: - ViewController Variables
+    //MARK: - UI Elements
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var menuView: UIView!
+    @IBOutlet var swipeRecognizer: UISwipeGestureRecognizer!
     
+    //MARK: - Composed objects
     lazy var mapVC: UIViewController? = {
         let map = self.storyboard?.instantiateViewController(withIdentifier: "mapView")
         return map
@@ -26,29 +28,31 @@ class ContainerViewController: UIViewController {
     //MARK: - Class Variables
     let blackTransparentViewTag = 666
     var isActive = false
+
+    //MARK: - Managers
+    var mqtt: MqttManager!
+    var annotationManager: AnnotationManager!
     
     //MARK: - ViewController Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        annotationManager = AnnotationManager.shared
+        mqtt = MqttManager.shared
         initView()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        MapController.shared.dismiss()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
     
     //MARK: - UISetup
     private func initView(){
+        self.navigationItem.title = "DIT-355"
         displayMap()
         addShadowToView()
         let btn =  UIBarButtonItem(image: UIImage.init(named: "burgerMenu"), style: .plain, target: self, action: #selector(openOrCloseSideMenu))
         navigationItem.rightBarButtonItem = btn
+        NotificationCenter.default.addObserver(self, selector: #selector(self.closeSideMenu), name: Notification.Name(rawValue:"closeMenu"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.openSideMenu), name: Notification.Name(rawValue:"openMenu"), object: nil)
+        
     }
-    
     private func displayMap(){
         // To display MapViewController in mapView
         if let vc = mapVC {
@@ -57,7 +61,6 @@ class ContainerViewController: UIViewController {
             self.mapView.addSubview(vc.view)
         }
     }
-    
     private func displaySideMenu(){
         // To display SideMenuViewController in menuView
         if !self.children.contains(menuVC!){
@@ -91,7 +94,6 @@ class ContainerViewController: UIViewController {
         
         
     }
-    
     private func addShadowToView(){
         //Gives Illusion that main view is above the side menu
         self.mapView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3).cgColor
@@ -128,8 +130,8 @@ class ContainerViewController: UIViewController {
             }) { (_) in
                 UIView.animate(withDuration: 0.3, animations: {
                     
-                    self.addBlackTransparentView().alpha = self.view.bounds.width * 0.8/(self.view.bounds.width * 1.8)
-                    self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.8), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
+                    self.addBlackTransparentView().alpha = self.view.bounds.width * 0.6/(self.view.bounds.width * 1.6)
+                    self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.6), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
                     
                 }) { (_) in
                     self.isActive = true
@@ -140,7 +142,6 @@ class ContainerViewController: UIViewController {
         }
         
     }
-    
     @objc func closeSideMenu(){
         //To close Side Menu
         let blackTransparentView = self.view.viewWithTag(self.blackTransparentViewTag)
@@ -155,5 +156,28 @@ class ContainerViewController: UIViewController {
         }
         
     }
-    
+    @objc func openSideMenu(){
+        UIView.animate(withDuration: 0.0, animations: {
+            self.displaySideMenu()
+            let blackTransparentView = self.addBlackTransparentView()
+            
+            self.mapVC!.view.addSubview(blackTransparentView)
+            
+        }) { (_) in
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.addBlackTransparentView().alpha = self.view.bounds.width * 0.6/(self.view.bounds.width * 1.6)
+                self.mapVC!.view.frame = CGRect(x: -(self.mapView.bounds.size.width * 0.6), y: 0, width: self.mapView.frame.size.width, height: self.mapView.frame.size.height)
+                
+            }) { (_) in
+                self.isActive = true
+                
+            }
+        }
+        
+    }
+    @IBAction func swipeRecognizerAction(_ sender: Any) {
+        closeSideMenu()
+    }
+   
 }
