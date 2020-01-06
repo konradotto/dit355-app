@@ -1,7 +1,7 @@
 # DIT355 visualizer app - iOS Client
 
 ## Introduction
-The visualizer of group 9 is an iOS client with the rsponsibility of visualizing public transport requests in the greater Gothenburg area.
+The visualiser of group 9 is an iOS client with the responsibility of visualising public transport requests in the greater Gothenburg area.
 
 ## Technologies
 The app is written for iOS 13 in Swift 5 using Xcode 11 where Cocoapods is the main package manager.
@@ -18,10 +18,10 @@ If you don't have Cocoapods installed follow [this tutorial](https://guides.coco
 
 ## Features
 * Configurable MQTT connection
-* Visualize the data on a map
+* Visualise the data on a map
 * Log the data into sessions
 * Filter the data
-* Create charts to summarize the data 
+* Create charts to summarise the data 
 
 ## Authors and Acknowledgment
 This module is part of the distributed system for Visual Transportation Support developed by Clusterrot (Group 9) during the course DIT355 Miniproject: Distributed Systems at the University of Gothenburg.
