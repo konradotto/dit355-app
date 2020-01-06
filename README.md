@@ -23,6 +23,16 @@ If you don't have Cocoapods installed follow [this tutorial](https://guides.coco
 * Filter the data
 * Create charts to summarise the data 
 
+### Screenshots
+
+<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41.jpeg" width="200" height="400" />
+<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__4_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__4_.jpeg" width="200" height="400" />
+<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__3_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__3_.jpeg" width="200" height="400" />
+<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.36.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.36.jpeg" width="200" height="400" />
+<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__2_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__2_.jpeg" width="200" height="400" />
+<img src="Screenshots/Disconnect.jpeg" data-canonical-src="Screenshots/Disconnect.jpeg" width="200" height="400" />
+
+
 ## Authors and Acknowledgment
 This module is part of the distributed system for Visual Transportation Support developed by Clusterrot (Group 9) during the course DIT355 Miniproject: Distributed Systems at the University of Gothenburg.
 The system was implemented from November 2019 through January 2020.
