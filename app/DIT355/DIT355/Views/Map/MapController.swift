@@ -8,18 +8,14 @@
 
 import Foundation
 import MapKit
-import NotificationBannerSwift
 import CoreLocation
 
 
 class MapController : NSObject {
     
+    //MARK: - Class Variables
     static let shared = MapController()
-    
     var mapView: MKMapView!
-    var model: MapModel!
-    var delegate: UIViewController!
-    
     let minCoord = CLLocation(latitude: 57.562184, longitude: 11.7018663)
     let maxCoord = CLLocation(latitude: 57.8580397, longitude: 12.2068462)
     lazy var mapRect = makeRect([minCoord.coordinate,maxCoord.coordinate])
@@ -28,8 +24,6 @@ class MapController : NSObject {
             let _ = state ? (model.resetButton.isHidden = true) : (model.resetButton.isHidden = false)
         }
     }
-    
-    lazy var sm = SessionManager.shared
     var annotations : [Annotation]
     let geoCoder = CLGeocoder()
     var placeMark: CLPlacemark! {
@@ -39,40 +33,37 @@ class MapController : NSObject {
     }
     var addressString = String()
     
+    //MARK: - Managers & Composed objects
+    lazy var sm = SessionManager.shared
+    var model: MapModel!
+    var delegate: UIViewController!
     
+    //MARK: - Constructor
     private override init(){
         annotations = [Annotation]()
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(plotAnnotations(notification:)), name: Notification.Name(rawValue:"plotAnnottions"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(filterAnnottions(notification:)), name: Notification.Name(rawValue:"filterType"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clearAnnotations(notification:)), name: Notification.Name(rawValue:"clearAnnotations"), object: nil)
         
     }
     
-    @objc func plotAnnotations(notification: NSNotification){
-        
-        
-        if let userInfo = notification.userInfo {
-            if let session = userInfo["session"] as? Session {
-                self.annotations = session.annotations
-                DispatchQueue.main.async {
-                    self.mapView.addAnnotations(self.annotations)
-                }
-            }
+    //MARK: - Class Functions
+    /// Removes all annotations plotted on the map.
+    func clearAnnotations(isSession: Bool){
+        if isSession{
+            NotificationCenter.default.post(name: Notification.Name("deselectRow"), object: nil)
         }
-        
-    }
-    
-    func dismiss(){
-        
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.annotations.removeAll()
+        model.clearButton.isHidden = true
     }
-    
+    /// Setup the default view of the map.
     func initialView(animated: Bool){
         let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
         mapView.setVisibleMapRect(self.mapRect, edgePadding: ei, animated: animated)
     }
-    
+    /// Reverse geocode a passed annotation
     func getAddress(_ ann: Annotation){
         
         let clLoc = CLLocation(latitude: ann.coordinate.latitude, longitude: ann.coordinate.longitude)
@@ -85,7 +76,7 @@ class MapController : NSObject {
             }
         })
     }
-    
+    /// Parse a returned placemark to a string; consisting of the street- name + number (if available).
     func parseAddress(_ selectedItem:CLPlacemark) -> String {
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
         if !firstSpace.elementsEqual(""){
@@ -95,17 +86,28 @@ class MapController : NSObject {
             return "Address not available :("
         }
     }
-    
+    /// Add a passed annotation to the map on the main thread.
     func addAnnotations(_ ann: Annotation){
-        
         self.annotations.append(ann)
-        
         DispatchQueue.main.async {
             self.mapView.addAnnotation(ann)
         }
+    }
+    
+    func navigateTo(_ annotations: [Annotation]){
+        let coords = annotations.map { (ann) -> CLLocationCoordinate2D in
+            ann.coordinate
+        }
+        let rect = makeRect(coords)
+        let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
+        DispatchQueue.main.async {
+            self.mapView.setVisibleMapRect(rect, edgePadding: ei, animated: true)
+        }
+        
         
     }
     
+    //MARK: - Selector Methods
     @objc func filterAnnottions(notification: NSNotification){
         if let userInfo = notification.userInfo {
             if let filter = userInfo["filter"] as? String {
@@ -135,8 +137,28 @@ class MapController : NSObject {
         }
         
     }
+    @objc func plotAnnotations(notification: NSNotification){
+        
+        if let userInfo = notification.userInfo {
+            if let session = userInfo["session"] as? Session {
+                self.annotations = session.annotations
+                DispatchQueue.main.async {
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    self.mapView.addAnnotations(self.annotations)
+                    self.mapView.showAnnotations(self.annotations, animated: true)
+                }
+            }
+            
+        }
+        
+    }
+    
+    @objc func clearAnnotations(notification: NSNotification){
+        self.clearAnnotations(isSession: false)
+    }
     
 }
+//MARK: - Class Extensions
 extension MapController : MKMapViewDelegate {
     
     
@@ -149,7 +171,7 @@ extension MapController : MKMapViewDelegate {
             return nil
         }
         else if let annotation = annotation as? Annotation {
-            
+            if model.clearButton.isHidden {model.clearButton.isHidden = false}
             let identifier = NSStringFromClass(Annotation.self)
             let view: MKMarkerAnnotationView =  MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             

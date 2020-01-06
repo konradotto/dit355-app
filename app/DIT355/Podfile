@@ -6,4 +6,6 @@
     	pod 'CocoaMQTT'
 	pod 'SwiftyJSON', '~> 4.0'
 	pod 'NotificationBannerSwift', '~> 3.0.0'
+	pod 'Charts'
+	pod 'Toast-Swift', '~> 5.0.1'
 end
