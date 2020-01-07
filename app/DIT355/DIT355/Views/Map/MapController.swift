@@ -60,6 +60,22 @@ class MapController : NSObject {
         isStopsPlotted = false
         model.clearButton.isHidden = true
     }
+    
+    func removeClusters(type: String){
+        
+        let overlays = self.mapView.overlays
+        var overlaysToRemove = [Cluster]()
+        for overlay in overlays {
+            if let o = overlay as? Cluster{
+                if o.type == type{
+                    overlaysToRemove.append(o)
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            self.mapView.removeOverlays(overlays)
+        }
+    }
     /// Setup the default view of the map.
     func initialView(animated: Bool){
         let ei = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
@@ -99,7 +115,7 @@ class MapController : NSObject {
     }
     ///add an overlay to the map on the main thread
     func addClusterOverlay(center: CLLocationCoordinate2D, radius: Double, type: String){
-        let cluster = Cluster.circle(coord: center, radius: radius, type: type  )
+        let cluster = Cluster.circle(coord: center, radius: radius, type: type)
         DispatchQueue.main.async {
             self.mapView.addOverlay(cluster)
         }
@@ -236,11 +252,11 @@ extension MapController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let circelOverLay = overlay as? Cluster else {return MKOverlayRenderer()}
         let circleRenderer = MKCircleRenderer(circle: circelOverLay)
-        if circelOverLay.type == "departure"{
-            circleRenderer.fillColor = .blue
-        }
-        else{
+        if circelOverLay.type! == "arrival" {
             circleRenderer.fillColor = .orange
+        }
+        else {
+            circleRenderer.fillColor = .blue
         }
         circleRenderer.strokeColor = .red
         circleRenderer.alpha = 0.2

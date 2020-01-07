@@ -29,11 +29,12 @@ If you don't have Cocoapods installed follow [this tutorial](https://guides.coco
 <img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__4_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__4_.jpeg" width="200" height="400" />
 <img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__3_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__3_.jpeg" width="200" height="400" />
 <img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.36.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.36.jpeg" width="200" height="400" />
-<img src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__2_.jpeg" data-canonical-src="Screenshots/WhatsApp_Image_2020-01-06_at_18.45.41__2_.jpeg" width="200" height="400" />
 <img src="Screenshots/Disconnect.jpeg" data-canonical-src="Screenshots/Disconnect.jpeg" width="200" height="400" />
+<img src="Screenshots/Cluster.jpeg" data-canonical-src="Screenshots/Cluster.jpeg" width="200" height="400" />
+<img src="Screenshots/chart.jpeg" data-canonical-src="Screenshots/chart.jpeg" width="200" height="400" />
 
 
-## Authors and Acknowledgment
+### Authors and Acknowledgment
 This module is part of the distributed system for Visual Transportation Support developed by Clusterrot (Group 9) during the course DIT355 Miniproject: Distributed Systems at the University of Gothenburg.
 The system was implemented from November 2019 through January 2020.
 Clusterrot consists of the following members:
