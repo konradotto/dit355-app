@@ -81,14 +81,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkU-W4-q0E" userLabel="Bar Chart View" customClass="BarChartView" customModule="Charts">
+                            <view userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="JkU-W4-q0E" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="506.66666666666669"/>
-                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
                                 <viewLayoutGuide key="safeArea" id="6Zz-Mr-tQV"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AV2-NL-gv3" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="0.0" y="506.66666666666669" width="375" height="217.33333333333331"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
                                 <viewLayoutGuide key="safeArea" id="wzj-mf-T5N"/>
                             </view>
                         </subviews>
@@ -106,7 +111,7 @@
                         <viewLayoutGuide key="safeArea" id="d55-IG-5pT"/>
                     </view>
                     <connections>
-                        <outlet property="barChartView" destination="JkU-W4-q0E" id="g94-7V-8S1"/>
+                        <outlet property="lineChartView" destination="JkU-W4-q0E" id="HWe-La-8Yf"/>
                         <outlet property="pieChartView" destination="AV2-NL-gv3" id="Yru-Dp-ftT"/>
                     </connections>
                 </viewController>

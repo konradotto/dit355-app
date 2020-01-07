@@ -18,7 +18,7 @@ struct Request : Codable {
     var originLong      : Double
     var destinationLat  : Double
     var destinationLong : Double
-    var departureTime   : Double
+    var departureTime   : String
     var type            : String
     var purpose         : String
     var id              : String
@@ -39,7 +39,7 @@ struct Request : Codable {
         self.originLong         = obj["origin"]["longitude"].doubleValue
         self.destinationLong    = obj["destination"]["longitude"].doubleValue
         self.destinationLat     = obj["destination"]["latitude"].doubleValue
-        self.departureTime      = obj["timeOfDeparture"].doubleValue
+        self.departureTime      = obj["timeOfDeparture"].stringValue
         self.type               = obj["transportationType"].stringValue
         self.purpose            = obj["purpose"].stringValue
         self.id                 = UUID().uuidString

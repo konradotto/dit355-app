@@ -18,11 +18,19 @@ class MqttManager{
     lazy var port = UInt16()
     lazy var topic = String()
     private var mqtt: CocoaMQTT?
-    var isConnected = false
+    var isConnected = false {
+        didSet {
+            if isConnected {
+                isForeground = true
+            }
+        }
+    }
     var isSubscribed = false
+    var isForeground = true
     
     //MARK: - Constructor
     private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     //MARK: - Connection Functions
@@ -52,7 +60,7 @@ class MqttManager{
     /// This function subscribes to a provided topic string.
     func subscribeTopic(topic: String){
         print(">> subscribing to topic: ",topic)
-        mqtt!.subscribe(topic, qos: .qos1)
+        mqtt!.subscribe(topic, qos: .qos0)
         self.topic = topic
     }
     /// This function unsubscribes from a provided topic string.
@@ -63,6 +71,7 @@ class MqttManager{
     /// This function disconnects the mqtt client from the host.
     func disconnect(){
         mqtt!.disconnect()
+        print("Triggered dissconnect!")
     }
     
     //MARK: - Required Functions
@@ -94,6 +103,12 @@ class MqttManager{
         }
         return String(randomString)
     }
+    @objc func appMovedToBackground() {
+        isForeground = false
+        if isConnected {
+            self.disconnect()
+        }
+    }
     
 }
 //MARK: - Class Extensions: MQTT Delegate Functions
@@ -105,14 +120,17 @@ extension MqttManager : CocoaMQTTDelegate {
         print(">> Did receive pong")
     }
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-        print(">> Did disconnect with error")
+        print(">> Did disconnect")
         NotificationCenter.default.post(name: Notification.Name(rawValue:"mqtt_status"), object: nil,userInfo: ["isConnected" : false])
         if err != nil { print(">> Error: ",err?.localizedDescription as Any) }
         self.isConnected = false
-        let dissBanner = NotificationBanner(title: "Disconntected from host :(", subtitle: "host: \(host)", style: .danger)
-        dissBanner.autoDismiss = true
-        dissBanner.duration = 1
-        dissBanner.show()
+        if isForeground{
+            let dissBanner = NotificationBanner(title: "Disconntected from host :(", subtitle: "host: \(host)", style: .danger)
+            dissBanner.autoDismiss = true
+            dissBanner.duration = 1
+            dissBanner.show()
+        }
+        
     }
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         print(">> Did connect acknowledge")
