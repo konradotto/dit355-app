@@ -61,7 +61,6 @@ class SideMenuViewController: UIViewController {
     @IBAction func tramSwitchAction(_ sender: Any) {
         
         if !tramSwitch.isOn{
-            print("tram filter triggered")
             notificationCenter.post(name: Notification.Name(rawValue:"filterType"), object: nil, userInfo: ["filter" : "tram"])
         }
         else {
