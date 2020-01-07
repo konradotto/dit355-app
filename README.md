@@ -34,7 +34,7 @@ If you don't have Cocoapods installed follow [this tutorial](https://guides.coco
 <img src="Screenshots/chart.jpeg" data-canonical-src="Screenshots/chart.jpeg" width="200" height="400" />
 
 
-## Authors and Acknowledgment
+### Authors and Acknowledgment
 This module is part of the distributed system for Visual Transportation Support developed by Clusterrot (Group 9) during the course DIT355 Miniproject: Distributed Systems at the University of Gothenburg.
 The system was implemented from November 2019 through January 2020.
 Clusterrot consists of the following members:
