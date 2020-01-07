@@ -19,6 +19,7 @@
 		CA39BCEF2379AD8D004BEF17 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCEE2379AD8D004BEF17 /* MapController.swift */; };
 		CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39BCF02379E533004BEF17 /* MapViewController.swift */; };
 		CA3A7B2823C2DCB8008364D5 /* coordinates.txt in Resources */ = {isa = PBXBuildFile; fileRef = CA3A7B2723C2DCB8008364D5 /* coordinates.txt */; };
+		CA3A7B2C23C434F1008364D5 /* Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3A7B2B23C434F1008364D5 /* Cluster.swift */; };
 		CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */; };
 		CA9D6998238E80A3000ABBAA /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */; };
 		CAD027C7237D53F7009EFA32 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD027C6237D53F7009EFA32 /* Annotation.swift */; };
@@ -47,6 +48,7 @@
 		CA39BCEE2379AD8D004BEF17 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CA39BCF02379E533004BEF17 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CA3A7B2723C2DCB8008364D5 /* coordinates.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = coordinates.txt; sourceTree = "<group>"; };
+		CA3A7B2B23C434F1008364D5 /* Cluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cluster.swift; sourceTree = "<group>"; };
 		CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		CA9D6997238E80A3000ABBAA /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
 		CAD027C6237D53F7009EFA32 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				CAF9AE20237C3D880032E1D0 /* Request.swift */,
 				CAD027C6237D53F7009EFA32 /* Annotation.swift */,
+				CA3A7B2B23C434F1008364D5 /* Cluster.swift */,
 				CAD027C8237D5621009EFA32 /* Session.swift */,
 				CA82DD402382D77000856CA6 /* SubtitleTableViewCell.swift */,
 			);
@@ -325,6 +328,7 @@
 				CA39BCED2379AD80004BEF17 /* MapModel.swift in Sources */,
 				CA099D22237431D500A7AC6B /* AppDelegate.swift in Sources */,
 				CADB4B3B239E7F2C00AA48D4 /* SettingViewController.swift in Sources */,
+				CA3A7B2C23C434F1008364D5 /* Cluster.swift in Sources */,
 				CA82DD412382D77000856CA6 /* SubtitleTableViewCell.swift in Sources */,
 				CAD027CE237D65DC009EFA32 /* ContainerViewController.swift in Sources */,
 				CA39BCF12379E533004BEF17 /* MapViewController.swift in Sources */,

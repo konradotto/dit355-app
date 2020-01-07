@@ -15,12 +15,12 @@ class Annotation: NSObject, MKAnnotation {
     var title           : String?
     var coordinate      : CLLocationCoordinate2D
     var type            : String
-    var departureTime   : TimeInterval?
+    var departureTime   : String
     var id              : String
     var subtitle        : String?
     
     //MARK: - Constructor
-    init(title: String, coordinate: CLLocationCoordinate2D,purpose: String,type: String, depTime: TimeInterval?, id: String) {
+    init(title: String, coordinate: CLLocationCoordinate2D,purpose: String,type: String, depTime: String, id: String) {
         self.title          = title
         self.coordinate     = coordinate
         self.type           =  type
