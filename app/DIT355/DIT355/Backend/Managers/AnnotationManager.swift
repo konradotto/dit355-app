@@ -39,7 +39,7 @@ class AnnotationManager {
     }
     /// Convert a Request struct to two annotations.
     func toAnnotations(_ rm : Request){
-        if rm.type == "cluster"{
+        if rm.type.contains("cluster"){
             toOverlay(rm)
         }
         else{
@@ -63,6 +63,9 @@ class AnnotationManager {
     }
     /// Convert a cluster request into a map overlay
     func toOverlay(_ rm : Request){
+        if rm.type.contains("delete"){
+            mc.removeClusters(type: rm.purpose)
+        }
         let center = CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong)
         let radius: Double = Double(rm.departureTime)! * 20
         let type = rm.purpose

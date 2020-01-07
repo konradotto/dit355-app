@@ -172,7 +172,6 @@ class SettingViewController: UIViewController {
     
     //MARK: - Selector Methods
     @objc func topicTextField_EditingChanged(){
-        print("row: ",pickerView.selectedRow(inComponent: 0))
         if topicTextField.text == "" {
             topicTextField.isHidden = true
             pickerView.isHidden = false
