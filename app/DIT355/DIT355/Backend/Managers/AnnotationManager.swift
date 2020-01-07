@@ -39,24 +39,36 @@ class AnnotationManager {
     }
     /// Convert a Request struct to two annotations.
     func toAnnotations(_ rm : Request){
+        if rm.type == "cluster"{
+            toOverlay(rm)
+        }
+        else{
+            var anns = [Annotation]()
+            anns.append(Annotation(title: "Source",
+                                   coordinate: CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong),
+                                   purpose: rm.purpose,
+                                   type: rm.type,
+                                   depTime: rm.departureTime,
+                                   id: rm.id))
+            anns.append(Annotation(title: "Destination",
+                                   coordinate: CLLocationCoordinate2D(latitude: rm.destinationLat, longitude: rm.destinationLong),
+                                   purpose: rm.purpose,
+                                   type: rm.type,
+                                   depTime: rm.departureTime,
+                                   id: rm.id))
+            
+            checkModes(anns)
+        }
         
-        //need to convert the timeinterval tho
-        var anns = [Annotation]()
-        anns.append(Annotation(title: "Source",
-                               coordinate: CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong),
-                               purpose: rm.purpose,
-                               type: rm.type,
-                               depTime: rm.departureTime,
-                               id: rm.id))
-        anns.append(Annotation(title: "Destination",
-                               coordinate: CLLocationCoordinate2D(latitude: rm.destinationLat, longitude: rm.destinationLong),
-                               purpose: rm.purpose,
-                               type: rm.type,
-                               depTime: rm.departureTime,
-                               id: rm.id))
-        
-        checkModes(anns)
     }
+    /// Convert a cluster request into a map overlay
+    func toOverlay(_ rm : Request){
+        let center = CLLocationCoordinate2D(latitude: rm.originLat, longitude: rm.originLong)
+        let radius: Double = Double(rm.departureTime)! * 20
+        let type = rm.purpose
+        mc.addClusterOverlay(center: center, radius: radius, type: type)
+    }
+    
     /// Coordinate the annotations based on the logging mode.
     func checkModes(_ anns: [Annotation]){
         if isLoggingSessions {
@@ -103,10 +115,12 @@ class AnnotationManager {
                                  coordinate: coord,
                                  purpose: "bus stop",
                                  type: "stop",
-                                 depTime: Double(),
+                                 depTime: "",
                                  id: "555")
             mc.addAnnotations(ann, isRequest: false)
         }
     }
+    
+    
     
 }

@@ -56,6 +56,8 @@ class MapController : NSObject {
         }
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.annotations.removeAll()
+        self.mapView.removeOverlays(self.mapView.overlays)
+        isStopsPlotted = false
         model.clearButton.isHidden = true
     }
     /// Setup the default view of the map.
@@ -93,6 +95,13 @@ class MapController : NSObject {
         }
         DispatchQueue.main.async {
             self.mapView.addAnnotation(ann)
+        }
+    }
+    ///add an overlay to the map on the main thread
+    func addClusterOverlay(center: CLLocationCoordinate2D, radius: Double, type: String){
+        let cluster = Cluster.circle(coord: center, radius: radius, type: type  )
+        DispatchQueue.main.async {
+            self.mapView.addOverlay(cluster)
         }
     }
     /// Navigate the visible map rectagle to the passed annotations
@@ -222,6 +231,21 @@ extension MapController : MKMapViewDelegate {
         if let annotation = view.annotation as? Annotation {
             self.getAddress(annotation)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let circelOverLay = overlay as? Cluster else {return MKOverlayRenderer()}
+        let circleRenderer = MKCircleRenderer(circle: circelOverLay)
+        if circelOverLay.type == "departure"{
+            circleRenderer.fillColor = .blue
+        }
+        else{
+            circleRenderer.fillColor = .orange
+        }
+        circleRenderer.strokeColor = .red
+        circleRenderer.alpha = 0.2
+        circleRenderer.lineWidth = 2
+        return circleRenderer
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

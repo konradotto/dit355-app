@@ -28,7 +28,7 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var setSizeButton: UIButton!
     
     //MARK: - Class Variables
-    private lazy var topicsArray = ["new","travel_requests","travel_requests/long_trips","travel_requests/short_trips","external"]
+    private lazy var topicsArray = ["new","travel_requests","travel_requests/long_trips/gothenburg","travel_requests/short_trips/gothenburg","external"]
     
     //MARK: - Managers
     private lazy var mqtt = MqttManager.shared
